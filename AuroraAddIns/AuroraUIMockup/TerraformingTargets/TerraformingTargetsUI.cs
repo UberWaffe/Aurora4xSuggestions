@@ -15,5 +15,31 @@ namespace AuroraUIMockup.TerraformingTargets
         {
             InitializeComponent();
         }
+
+        private void button_SetTarget_Click(object sender, EventArgs e)
+        {
+
+        }
+
+        private void button_DeleteTarget_Click(object sender, EventArgs e)
+        {
+
+        }
+
+
+
+
+        /* =====================================================================================================================================================
+         *  SIMULATION UI CODE FOLLOWS
+         */
+        private void button_SimulateGameTick_Click(object sender, EventArgs e)
+        {
+
+        }
+
+        private void button_ToggleSentences_Click(object sender, EventArgs e)
+        {
+
+        }
     }
 }

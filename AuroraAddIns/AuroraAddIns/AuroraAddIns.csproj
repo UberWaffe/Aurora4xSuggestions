@@ -40,12 +40,15 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="TerraformingTargets\Interfaces\IOrbitBodyTerraformDataHandler.cs" />
     <Compile Include="TerraformingTargets\Interfaces\IPopulationTerraformCapacity.cs" />
+    <Compile Include="TerraformingTargets\Interfaces\ITerraformingManager.cs" />
     <Compile Include="TerraformingTargets\Models\TerraformChangeResult.cs" />
     <Compile Include="TerraformingTargets\Models\TerraformConstants.cs" />
     <Compile Include="TerraformingTargets\Models\TerraformElement.cs" />
     <Compile Include="TerraformingTargets\Models\TerraformElementsSet.cs" />
-    <Compile Include="TerraformingTargets\Models\TerraformTargetsForOrbitBody.cs" />
+    <Compile Include="TerraformingTargets\Models\TerraformGameState.cs" />
+    <Compile Include="TerraformingTargets\Models\OrbitBodyWithTerraformInfo.cs" />
     <Compile Include="TerraformingTargets\TerraformingManager.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="TerraformingTargets\Models\TerraformMutipleAdjustmentResult.cs" />

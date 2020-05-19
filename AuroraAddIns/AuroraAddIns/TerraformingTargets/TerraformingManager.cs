@@ -7,7 +7,7 @@ using System.Text;
 
 namespace Aurora.AddIns.TerraformingTargets
 {
-    public class TerraformingManager
+    public class TerraformingManager : ITerraformingManager
     {
         private IPopulationTerraformCapacity _terraformCapacityGetter;
 
@@ -18,6 +18,11 @@ namespace Aurora.AddIns.TerraformingTargets
 
         public TerraformChangeResult CalculateSingleElementChange(double targetAmount, double currentAmount, double maxChangePossible)
         {
+            if (maxChangePossible < TerraformConstants.CloseEnoughToMatch)
+            {
+                return new TerraformChangeResult(currentAmount, 0.0, false);
+            }
+
             var requiredDelta = Math.Abs(targetAmount - currentAmount);
             var usedChange = Math.Min(requiredDelta, maxChangePossible);
             var changeLeftOver = maxChangePossible - usedChange;

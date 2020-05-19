@@ -78,6 +78,18 @@ namespace Aurora.AddIns.Tests.TerraformingTargets
         }
 
         [TestMethod]
+        public void Manager_WhenCalculatingChange_AndDeltaIsZero_Should_NotAdjustCurrentEvenIfDeltaIsClose()
+        {
+            var targetAtm = 1.000001;
+            var currentAtm = 1.0;
+            var maxChangePossible = 0.0;
+
+            var results = _terraformManager.CalculateSingleElementChange(targetAtm, currentAtm, maxChangePossible);
+
+            Assert.AreEqual(currentAtm, results.newElementAmount);
+        }
+
+        [TestMethod]
         public void Manager_WhenCalculatingChange_AndDeltaLacks_Should_GiveCorrectNew()
         {
             var targetAtm = 2.4;
@@ -177,6 +189,12 @@ namespace Aurora.AddIns.Tests.TerraformingTargets
         }
 
         [TestMethod]
+        public void Manager_WhenCalculatingMultiple_AndTwoPopulationsOnOneBody_Should_CalculateNetCorrectly()
+        {
+            Assert.Inconclusive();
+        }
+
+        [TestMethod]
         public void Manager_WhenProcessingOrbitBody_Should_ProcessCorrectly()
         {
             var mockOrbitBody = new OrbitBodyWithTerraformInfo(2071, 1099);
@@ -188,9 +206,9 @@ namespace Aurora.AddIns.Tests.TerraformingTargets
             var results = _terraformManager.ProcessOrbitBody(mockOrbitBody, 3600 * 24 * 5);
 
             Assert.IsFalse(results.DesiredTargets.IsPresent(1));
-            Assert.IsTrue(TwoDoublesAreCloseEnough(0.2, results.CurrentElements.GetAmount(1)));
-            Assert.IsTrue(TwoDoublesAreCloseEnough(0.1, results.CurrentElements.GetAmount(2)));
-            Assert.IsTrue(TwoDoublesAreCloseEnough(85.76, results.CurrentElements.GetAmount(5)));
+            TwoDoublesAreCloseEnough(0.2, results.CurrentElements.GetAmount(1));
+            TwoDoublesAreCloseEnough(0.1, results.CurrentElements.GetAmount(2));
+            TwoDoublesAreCloseEnough(85.76, results.CurrentElements.GetAmount(5));
         }
 
         [TestMethod]
@@ -215,22 +233,46 @@ namespace Aurora.AddIns.Tests.TerraformingTargets
             var body2071Results = results.First(body => body.OrbitBodyId == 2071);
 
             Assert.IsFalse(body2071Results.DesiredTargets.IsPresent(1));
-            Assert.IsTrue(TwoDoublesAreCloseEnough(0.1, body2071Results.CurrentElements.GetAmount(1)));
-            Assert.IsTrue(TwoDoublesAreCloseEnough(0.2, body2071Results.CurrentElements.GetAmount(2)));
-            Assert.IsTrue(TwoDoublesAreCloseEnough(85.76, body2071Results.CurrentElements.GetAmount(5)));
+            TwoDoublesAreCloseEnough(0.1, body2071Results.CurrentElements.GetAmount(1));
+            TwoDoublesAreCloseEnough(0.2, body2071Results.CurrentElements.GetAmount(2));
+            TwoDoublesAreCloseEnough(85.76, body2071Results.CurrentElements.GetAmount(5));
 
 
             var body2100Results = results.First(body => body.OrbitBodyId == 2100);
 
             Assert.IsFalse(body2100Results.DesiredTargets.IsPresent(1));
             Assert.IsFalse(body2100Results.DesiredTargets.IsPresent(2));
-            Assert.IsTrue(TwoDoublesAreCloseEnough(0.8, body2100Results.CurrentElements.GetAmount(1)));
-            Assert.IsTrue(TwoDoublesAreCloseEnough(0.2, body2100Results.CurrentElements.GetAmount(2)));
+            TwoDoublesAreCloseEnough(0.8, body2100Results.CurrentElements.GetAmount(1));
+            TwoDoublesAreCloseEnough(0.2, body2100Results.CurrentElements.GetAmount(2));
         }
 
-        private bool TwoDoublesAreCloseEnough(double val1, double val2)
+        [TestMethod]
+        public void Manager_TerraformGameState_OneInvoke_Should_ProcessOnceOnly()
         {
-            return (Math.Abs(val1 - val2) < 0.001);
+            var mockState = TerraformMockHelpers.Setup_MockGameStateData();
+
+            var gameDataHandlerMock = TerraformMockHelpers.SetupMock_IOrbitBodyTerraformDataHandler(mockState);
+            var managerMock = TerraformMockHelpers.SetupMock_ITerraformingManager(mockState);
+            var gameState = new TerraformGameState(gameDataHandlerMock.Object, managerMock.Object);
+
+            gameState.DoGameUpdate();
+
+            gameDataHandlerMock.Verify(m => m.GetAllOrbitBodiesTerraformInfo(), Times.Once);
+            managerMock.Verify(m => m.ProcessAll(mockState, 3600 * 24 * 5), Times.Once);
+            gameDataHandlerMock.Verify(m => m.SetAllOrbitBodiesTerraformInfo(mockState), Times.Once);
+        }
+
+        private void TwoDoublesAreCloseEnough(double expected, double actual)
+        {
+            var delta = Math.Abs(expected - actual);
+            if (delta < 0.001)
+            {
+                Assert.IsTrue(delta < 0.001);
+            }
+            else
+            {
+                Assert.AreEqual(expected, actual);
+            }
         }
     }
 }
