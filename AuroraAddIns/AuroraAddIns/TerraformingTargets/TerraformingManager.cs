@@ -1,4 +1,5 @@
-﻿using Aurora.AddIns.TerraformingTargets.Models;
+﻿using Aurora.AddIns.TerraformingTargets.Interfaces;
+using Aurora.AddIns.TerraformingTargets.Models;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -8,9 +9,11 @@ namespace Aurora.AddIns.TerraformingTargets
 {
     public class TerraformingManager
     {
-        public TerraformingManager()
-        {
+        private IPopulationTerraformCapacity _terraformCapacityGetter;
 
+        public TerraformingManager(IPopulationTerraformCapacity capGetter)
+        {
+            _terraformCapacityGetter = capGetter;
         }
 
         public TerraformChangeResult CalculateSingleElementChange(double targetAmount, double currentAmount, double maxChangePossible)
@@ -68,6 +71,27 @@ namespace Aurora.AddIns.TerraformingTargets
                 currentElementValues = currentElements,
                 adjustedTargets = targets
             };
+        }
+
+        public OrbitBodyWithTerraformInfo ProcessOrbitBody(OrbitBodyWithTerraformInfo target, long deltaTimeInSeconds)
+        {
+            var maxPossibleDelta = _terraformCapacityGetter.GetTotalTerraformingDeltaForPopulation(target.PopulationId, secondsSinceLastCalc: deltaTimeInSeconds);
+
+            var adjustResults = AdjustMultipleElements(currentElements: target.CurrentElements, targets: target.DesiredTargets, maxChangePossible: maxPossibleDelta);
+            target.CurrentElements = adjustResults.currentElementValues;
+            target.DesiredTargets = adjustResults.adjustedTargets;
+
+            return target;
+        }
+
+        public List<OrbitBodyWithTerraformInfo> ProcessAll(List<OrbitBodyWithTerraformInfo> allTargets, long deltaTimeInSeconds)
+        {
+            var allTargetsArrray = allTargets.ToArray();
+            for (var counter = 0; counter < allTargets.Count; counter++)
+            {
+                allTargetsArrray[counter] = ProcessOrbitBody(allTargetsArrray[counter], deltaTimeInSeconds);
+            }
+            return allTargetsArrray.ToList();
         }
     }
 }

@@ -4,12 +4,12 @@
   <PropertyGroup>
     <Configuration Condition=" '$(Configuration)' == '' ">Debug</Configuration>
     <Platform Condition=" '$(Platform)' == '' ">AnyCPU</Platform>
-    <ProjectGuid>{E85C1F3E-BAE6-460F-A0B9-7E80F62F37A8}</ProjectGuid>
+    <ProjectGuid>{B141DD08-B20F-4E21-8C7A-88D3B6E8D373}</ProjectGuid>
     <OutputType>Library</OutputType>
     <AppDesignerFolder>Properties</AppDesignerFolder>
-    <RootNamespace>Aurora.AddIns</RootNamespace>
-    <AssemblyName>AuroraAddIns</AssemblyName>
-    <TargetFrameworkVersion>v4.0</TargetFrameworkVersion>
+    <RootNamespace>Aurora.AddIns.Persist</RootNamespace>
+    <AssemblyName>AuroraAddInsPersist</AssemblyName>
+    <TargetFrameworkVersion>v4.7.2</TargetFrameworkVersion>
     <FileAlignment>512</FileAlignment>
     <Deterministic>true</Deterministic>
   </PropertyGroup>
@@ -37,19 +37,19 @@
     <Reference Include="System.Data.DataSetExtensions" />
     <Reference Include="Microsoft.CSharp" />
     <Reference Include="System.Data" />
+    <Reference Include="System.Net.Http" />
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="TerraformingTargets\Interfaces\IPopulationTerraformCapacity.cs" />
-    <Compile Include="TerraformingTargets\Models\TerraformChangeResult.cs" />
-    <Compile Include="TerraformingTargets\Models\TerraformConstants.cs" />
-    <Compile Include="TerraformingTargets\Models\TerraformElement.cs" />
-    <Compile Include="TerraformingTargets\Models\TerraformElementsSet.cs" />
-    <Compile Include="TerraformingTargets\Models\TerraformTargetsForOrbitBody.cs" />
-    <Compile Include="TerraformingTargets\TerraformingManager.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
-    <Compile Include="TerraformingTargets\Models\TerraformMutipleAdjustmentResult.cs" />
+    <Compile Include="TerraformingTargets\ITerraformingTargetsPersist.cs" />
+    <Compile Include="TerraformingTargets\TerraformingTargetsEF.cs" />
   </ItemGroup>
-  <ItemGroup />
+  <ItemGroup>
+    <ProjectReference Include="..\AuroraAddIns\AuroraAddIns.csproj">
+      <Project>{e85c1f3e-bae6-460f-a0b9-7e80f62f37a8}</Project>
+      <Name>AuroraAddIns</Name>
+    </ProjectReference>
+  </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
 </Project>
