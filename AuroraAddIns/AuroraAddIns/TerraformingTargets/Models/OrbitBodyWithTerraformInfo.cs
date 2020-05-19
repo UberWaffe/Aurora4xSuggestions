@@ -10,7 +10,6 @@ namespace Aurora.AddIns.TerraformingTargets.Models
         public int OrbitBodyId { get; set; }
         public int PopulationId { get; set; }
         public TerraformElementsSet DesiredTargets { get; set; }
-        public TerraformElementsSet CurrentElements { get; set; }
 
 
         public OrbitBodyWithTerraformInfo(int bodyId, int popId) : this()
@@ -22,7 +21,6 @@ namespace Aurora.AddIns.TerraformingTargets.Models
         public OrbitBodyWithTerraformInfo()
         {
             DesiredTargets = new TerraformElementsSet();
-            CurrentElements = new TerraformElementsSet();
         }
     }
 }

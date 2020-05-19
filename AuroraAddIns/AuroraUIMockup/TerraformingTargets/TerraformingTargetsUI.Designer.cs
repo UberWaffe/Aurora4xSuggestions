@@ -129,6 +129,7 @@
             this.textBox_SimulateSeconds.Name = "textBox_SimulateSeconds";
             this.textBox_SimulateSeconds.Size = new System.Drawing.Size(100, 20);
             this.textBox_SimulateSeconds.TabIndex = 103;
+            this.textBox_SimulateSeconds.TextChanged += new System.EventHandler(this.textBox_SimulateSeconds_TextChanged);
             // 
             // textBox_SimulateAtmPerAnnum
             // 

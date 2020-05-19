@@ -10,7 +10,7 @@ namespace Aurora.AddIns.TerraformingTargets.Interfaces
     {
         TerraformChangeResult CalculateSingleElementChange(double targetAmount, double currentAmount, double maxChangePossible);
         TerraformMutipleAdjustmentResult AdjustMultipleElements(TerraformElementsSet currentElements, TerraformElementsSet targets, double maxChangePossible);
-        OrbitBodyWithTerraformInfo ProcessOrbitBody(OrbitBodyWithTerraformInfo target, long deltaTimeInSeconds);
-        List<OrbitBodyWithTerraformInfo> ProcessAll(List<OrbitBodyWithTerraformInfo> allTargets, long deltaTimeInSeconds);
+        ProcessedTerraformingResult ProcessOrbitBody(OrbitBodyWithTerraformInfo target, OrbitBodyWithCurrentElementInfo currentElements, long deltaTimeInSeconds);
+        ProcessedTerraformingListResult ProcessAll(List<OrbitBodyWithTerraformInfo> allTargets, List<OrbitBodyWithCurrentElementInfo> allCurrentElements, long deltaTimeInSeconds);
     }
 }

@@ -84,5 +84,10 @@ namespace Aurora.AddIns.TerraformingTargets.Models
         {
             return theElements.Any(elem => elem.elementId == elementId);
         }
+
+        public bool NoElementsLeft()
+        {
+            return (theElements.Any() == false);
+        }
     }
 }

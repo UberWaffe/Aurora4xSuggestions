@@ -31,11 +31,11 @@ namespace Aurora.AddIns.Tests.TerraformingTargets
             var mockGameState = new Mock<IOrbitBodyTerraformDataHandler>();
 
             mockGameState.Setup(
-                m => m.GetAllOrbitBodiesTerraformInfo()
+                m => m.GetAllPopulationsTerraformInfo()
                 ).Returns(data);
 
             mockGameState.Setup(
-                m => m.SetAllOrbitBodiesTerraformInfo(It.IsAny<List<OrbitBodyWithTerraformInfo>>())
+                m => m.SetAllPopulationsTerraformInfo(It.IsAny<List<OrbitBodyWithTerraformInfo>>())
                 ).Verifiable();
 
             mockGameState.Setup(
@@ -45,25 +45,20 @@ namespace Aurora.AddIns.Tests.TerraformingTargets
             return mockGameState;
         }
 
-        public static Mock<ITerraformingManager> SetupMock_ITerraformingManager(List<OrbitBodyWithTerraformInfo> data)
+        public static Mock<ITerraformingManager> SetupMock_ITerraformingManager(ProcessedTerraformingListResult data)
         {
             var mockManager = new Mock<ITerraformingManager>();
 
             mockManager.Setup(
-                m => m.ProcessAll(It.IsAny<List<OrbitBodyWithTerraformInfo>>(), It.IsAny<long>())
+                m => m.ProcessAll(It.IsAny<List<OrbitBodyWithTerraformInfo>>(), It.IsAny<List<OrbitBodyWithCurrentElementInfo>>(), It.IsAny<long>())
                 ).Returns(data);
 
             return mockManager;
         }
 
-        public static List<OrbitBodyWithTerraformInfo> Setup_MockGameStateData()
+        public static List<OrbitBodyWithTerraformInfo> Setup_MockGameStateData_Targets()
         {
             var getDataResult = new List<OrbitBodyWithTerraformInfo>();
-
-            var currentElements = new TerraformElementsSet();
-            currentElements.Set(1, 1.0);
-            currentElements.Set(2, 2.0);
-            currentElements.Set(3, 3.0);
 
             var targets = new TerraformElementsSet();
             targets.Set(1, 1.1);
@@ -72,14 +67,8 @@ namespace Aurora.AddIns.Tests.TerraformingTargets
 
             getDataResult.Add(new OrbitBodyWithTerraformInfo(5000, 1000)
             {
-                CurrentElements = currentElements,
                 DesiredTargets = targets
             });
-
-            currentElements = new TerraformElementsSet();
-            currentElements.Set(4, 4.0);
-            currentElements.Set(5, 5.0);
-            currentElements.Set(6, 6.0);
 
             targets = new TerraformElementsSet();
             targets.Set(4, 2.0);
@@ -88,11 +77,37 @@ namespace Aurora.AddIns.Tests.TerraformingTargets
 
             getDataResult.Add(new OrbitBodyWithTerraformInfo(5001, 1001)
             {
-                CurrentElements = currentElements,
                 DesiredTargets = targets
             });
 
             return getDataResult;
+        }
+
+        public static List<OrbitBodyWithCurrentElementInfo> Setup_MockGameStateData_Elements()
+        {
+            var getElementsResult = new List<OrbitBodyWithCurrentElementInfo>();
+
+            var currentElements = new TerraformElementsSet();
+            currentElements.Set(1, 1.0);
+            currentElements.Set(2, 2.0);
+            currentElements.Set(3, 3.0);
+
+            getElementsResult.Add(new OrbitBodyWithCurrentElementInfo(5000)
+            {
+                CurrentElements = currentElements
+            });
+
+            currentElements = new TerraformElementsSet();
+            currentElements.Set(4, 4.0);
+            currentElements.Set(5, 5.0);
+            currentElements.Set(6, 6.0);
+
+            getElementsResult.Add(new OrbitBodyWithCurrentElementInfo(5001)
+            {
+                CurrentElements = currentElements
+            });
+
+            return getElementsResult;
         }
 
     }

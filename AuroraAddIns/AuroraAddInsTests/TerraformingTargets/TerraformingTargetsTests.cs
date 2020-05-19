@@ -197,18 +197,19 @@ namespace Aurora.AddIns.Tests.TerraformingTargets
         [TestMethod]
         public void Manager_WhenProcessingOrbitBody_Should_ProcessCorrectly()
         {
-            var mockOrbitBody = new OrbitBodyWithTerraformInfo(2071, 1099);
-            mockOrbitBody.DesiredTargets.Set(1, 0.2);
-            mockOrbitBody.DesiredTargets.Set(2, 0.8);
+            var mockPopulation = new OrbitBodyWithTerraformInfo(2071, 1099);
+            mockPopulation.DesiredTargets.Set(1, 0.2);
+            mockPopulation.DesiredTargets.Set(2, 0.8);
 
+            var mockOrbitBody = new OrbitBodyWithCurrentElementInfo(2071);
             mockOrbitBody.CurrentElements.Set(5, 85.76);
             
-            var results = _terraformManager.ProcessOrbitBody(mockOrbitBody, 3600 * 24 * 5);
+            var results = _terraformManager.ProcessOrbitBody(mockPopulation, mockOrbitBody, 3600 * 24 * 5);
 
-            Assert.IsFalse(results.DesiredTargets.IsPresent(1));
-            TwoDoublesAreCloseEnough(0.2, results.CurrentElements.GetAmount(1));
-            TwoDoublesAreCloseEnough(0.1, results.CurrentElements.GetAmount(2));
-            TwoDoublesAreCloseEnough(85.76, results.CurrentElements.GetAmount(5));
+            Assert.IsFalse(results.newTargets.DesiredTargets.IsPresent(1));
+            TwoDoublesAreCloseEnough(0.2, results.newValues.CurrentElements.GetAmount(1));
+            TwoDoublesAreCloseEnough(0.1, results.newValues.CurrentElements.GetAmount(2));
+            TwoDoublesAreCloseEnough(85.76, results.newValues.CurrentElements.GetAmount(5));
         }
 
         [TestMethod]
@@ -219,29 +220,40 @@ namespace Aurora.AddIns.Tests.TerraformingTargets
             var entry = new OrbitBodyWithTerraformInfo(2100, 1100);
             entry.DesiredTargets.Set(1, 0.8);
             entry.DesiredTargets.Set(2, 0.2);
-            entry.CurrentElements.Set(1, 0.7);
             allMockInfo.Add(entry);
 
             entry = new OrbitBodyWithTerraformInfo(2071, 1099);
             entry.DesiredTargets.Set(1, 0.1);
             entry.DesiredTargets.Set(2, 0.9);
-            entry.CurrentElements.Set(5, 85.76);
             allMockInfo.Add(entry);
 
-            var results = _terraformManager.ProcessAll(allMockInfo, 3600 * 24 * 5);
+            var allBodyInfo = new List<OrbitBodyWithCurrentElementInfo>();
 
-            var body2071Results = results.First(body => body.OrbitBodyId == 2071);
+            var entryEle = new OrbitBodyWithCurrentElementInfo(2100);
+            entryEle.CurrentElements.Set(1, 0.7);
+            allBodyInfo.Add(entryEle);
 
-            Assert.IsFalse(body2071Results.DesiredTargets.IsPresent(1));
+            entryEle = new OrbitBodyWithCurrentElementInfo(2071);
+            entryEle.CurrentElements.Set(5, 85.76);
+            allBodyInfo.Add(entryEle);
+
+            var results = _terraformManager.ProcessAll(allMockInfo, allBodyInfo, 3600 * 24 * 5);
+
+            var body2071Results = results.newValues.First(body => body.OrbitBodyId == 2071);
+            var body2071Targets = results.newTargets.First(body => body.OrbitBodyId == 2071);
+
+            Assert.IsFalse(body2071Targets.DesiredTargets.IsPresent(1));
+
             TwoDoublesAreCloseEnough(0.1, body2071Results.CurrentElements.GetAmount(1));
             TwoDoublesAreCloseEnough(0.2, body2071Results.CurrentElements.GetAmount(2));
             TwoDoublesAreCloseEnough(85.76, body2071Results.CurrentElements.GetAmount(5));
 
 
-            var body2100Results = results.First(body => body.OrbitBodyId == 2100);
+            var body2100Results = results.newValues.First(body => body.OrbitBodyId == 2100);
+            var body2100Targets = results.newTargets.First(body => body.OrbitBodyId == 2100);
 
-            Assert.IsFalse(body2100Results.DesiredTargets.IsPresent(1));
-            Assert.IsFalse(body2100Results.DesiredTargets.IsPresent(2));
+            Assert.IsFalse(body2100Targets.DesiredTargets.IsPresent(1));
+            Assert.IsFalse(body2100Targets.DesiredTargets.IsPresent(2));
             TwoDoublesAreCloseEnough(0.8, body2100Results.CurrentElements.GetAmount(1));
             TwoDoublesAreCloseEnough(0.2, body2100Results.CurrentElements.GetAmount(2));
         }
@@ -249,18 +261,101 @@ namespace Aurora.AddIns.Tests.TerraformingTargets
         [TestMethod]
         public void Manager_TerraformGameState_OneInvoke_Should_ProcessOnceOnly()
         {
-            var mockState = TerraformMockHelpers.Setup_MockGameStateData();
+            var mockState = TerraformMockHelpers.Setup_MockGameStateData_Targets();
+            var mockStateCurrent = TerraformMockHelpers.Setup_MockGameStateData_Elements();
+            var mockProcessedResult = new ProcessedTerraformingListResult()
+            {
+                newTargets = mockState,
+                newValues = mockStateCurrent
+            };
 
             var gameDataHandlerMock = TerraformMockHelpers.SetupMock_IOrbitBodyTerraformDataHandler(mockState);
-            var managerMock = TerraformMockHelpers.SetupMock_ITerraformingManager(mockState);
+            var managerMock = TerraformMockHelpers.SetupMock_ITerraformingManager(mockProcessedResult);
             var gameState = new TerraformGameState(gameDataHandlerMock.Object, managerMock.Object);
 
             gameState.DoGameUpdate();
 
-            gameDataHandlerMock.Verify(m => m.GetAllOrbitBodiesTerraformInfo(), Times.Once);
-            managerMock.Verify(m => m.ProcessAll(mockState, 3600 * 24 * 5), Times.Once);
-            gameDataHandlerMock.Verify(m => m.SetAllOrbitBodiesTerraformInfo(mockState), Times.Once);
+            gameDataHandlerMock.Verify(m => m.GetAllPopulationsTerraformInfo(), Times.Once);
+            managerMock.Verify(m => m.ProcessAll(It.IsAny<List<OrbitBodyWithTerraformInfo>>(), It.IsAny<List<OrbitBodyWithCurrentElementInfo>>(), 3600 * 24 * 5), Times.Once);
+            gameDataHandlerMock.Verify(m => m.SetAllPopulationsTerraformInfo(mockState), Times.Once);
         }
+
+        [TestMethod]
+        public void GameState_SettingANewTarget_Should_AddCorrectly()
+        {
+            var mockState = TerraformMockHelpers.Setup_MockGameStateData_Targets();
+            var mockStateCurrent = TerraformMockHelpers.Setup_MockGameStateData_Elements();
+            var mockProcessedResult = new ProcessedTerraformingListResult()
+            {
+                newTargets = mockState,
+                newValues = mockStateCurrent
+            };
+
+            var gameDataHandlerMock = TerraformMockHelpers.SetupMock_IOrbitBodyTerraformDataHandler(mockState);
+            var managerMock = TerraformMockHelpers.SetupMock_ITerraformingManager(mockProcessedResult);
+            var gameState = new TerraformGameState(gameDataHandlerMock.Object, managerMock.Object);
+
+            gameState.SetNewTargetFor(orbitBodyId: 9999, populationId: 8888, elementId: 777, targetAmount: 100.0);
+
+            var fetchTarget = gameState.GetTargetsFor(orbitBodyId: 9999, populationId: 8888);
+            Assert.AreEqual(100.0, fetchTarget.DesiredTargets.GetAmount(777));
+        }
+
+        [TestMethod]
+        public void GameState_DeletingATarget_Should_RemoveCorrectly()
+        {
+            var mockState = TerraformMockHelpers.Setup_MockGameStateData_Targets();
+            var mockStateCurrent = TerraformMockHelpers.Setup_MockGameStateData_Elements();
+            var mockProcessedResult = new ProcessedTerraformingListResult()
+            {
+                newTargets = mockState,
+                newValues = mockStateCurrent
+            };
+
+            var gameDataHandlerMock = TerraformMockHelpers.SetupMock_IOrbitBodyTerraformDataHandler(mockState);
+            var managerMock = TerraformMockHelpers.SetupMock_ITerraformingManager(mockProcessedResult);
+            var gameState = new TerraformGameState(gameDataHandlerMock.Object, managerMock.Object);
+
+            gameState.SetNewTargetFor(orbitBodyId: 9999, populationId: 8888, elementId: 1, targetAmount: 1.1);
+            gameState.SetNewTargetFor(orbitBodyId: 9999, populationId: 8888, elementId: 2, targetAmount: 2.2);
+            gameState.SetNewTargetFor(orbitBodyId: 9999, populationId: 8888, elementId: 3, targetAmount: 3.3);
+
+            gameState.DeleteTargetFor(orbitBodyId: 9999, populationId: 8888, elementId: 2);
+
+            var fetchTarget = gameState.GetTargetsFor(orbitBodyId: 9999, populationId: 8888);
+            Assert.AreEqual(1.1, fetchTarget.DesiredTargets.GetAmount(1));
+            Assert.IsFalse(fetchTarget.DesiredTargets.IsPresent(2));
+            Assert.AreEqual(3.3, fetchTarget.DesiredTargets.GetAmount(3));
+        }
+
+        [TestMethod]
+        public void GameState_IfAllTargetsAreDeleted_Should_RemoveEntryEntirely()
+        {
+            var mockState = TerraformMockHelpers.Setup_MockGameStateData_Targets();
+            var mockStateCurrent = TerraformMockHelpers.Setup_MockGameStateData_Elements();
+            var mockProcessedResult = new ProcessedTerraformingListResult()
+            {
+                newTargets = mockState,
+                newValues = mockStateCurrent
+            };
+
+            var gameDataHandlerMock = TerraformMockHelpers.SetupMock_IOrbitBodyTerraformDataHandler(mockState);
+            var managerMock = TerraformMockHelpers.SetupMock_ITerraformingManager(mockProcessedResult);
+            var gameState = new TerraformGameState(gameDataHandlerMock.Object, managerMock.Object);
+
+            gameState.SetNewTargetFor(orbitBodyId: 9999, populationId: 8888, elementId: 1, targetAmount: 1.1);
+
+            var fetchTarget = gameState.GetTargetsFor(orbitBodyId: 9999, populationId: 8888);
+            Assert.AreEqual(1.1, fetchTarget.DesiredTargets.GetAmount(1));
+
+            gameState.DeleteTargetFor(orbitBodyId: 9999, populationId: 8888, elementId: 1);
+            fetchTarget = gameState.GetTargetsFor(orbitBodyId: 9999, populationId: 8888);
+
+            Assert.IsNull(fetchTarget);
+        }
+
+
+        #region private_functions
 
         private void TwoDoublesAreCloseEnough(double expected, double actual)
         {
@@ -274,5 +369,7 @@ namespace Aurora.AddIns.Tests.TerraformingTargets
                 Assert.AreEqual(expected, actual);
             }
         }
+
+        #endregion
     }
 }

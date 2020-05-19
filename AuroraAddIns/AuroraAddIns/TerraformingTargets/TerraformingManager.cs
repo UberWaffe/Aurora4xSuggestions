@@ -78,25 +78,45 @@ namespace Aurora.AddIns.TerraformingTargets
             };
         }
 
-        public OrbitBodyWithTerraformInfo ProcessOrbitBody(OrbitBodyWithTerraformInfo target, long deltaTimeInSeconds)
+        public ProcessedTerraformingResult ProcessOrbitBody(OrbitBodyWithTerraformInfo target, OrbitBodyWithCurrentElementInfo currentElements, long deltaTimeInSeconds)
         {
             var maxPossibleDelta = _terraformCapacityGetter.GetTotalTerraformingDeltaForPopulation(target.PopulationId, secondsSinceLastCalc: deltaTimeInSeconds);
 
-            var adjustResults = AdjustMultipleElements(currentElements: target.CurrentElements, targets: target.DesiredTargets, maxChangePossible: maxPossibleDelta);
-            target.CurrentElements = adjustResults.currentElementValues;
+            var adjustResults = AdjustMultipleElements(currentElements: currentElements.CurrentElements, targets: target.DesiredTargets, maxChangePossible: maxPossibleDelta);
+            currentElements.CurrentElements = adjustResults.currentElementValues;
             target.DesiredTargets = adjustResults.adjustedTargets;
 
-            return target;
+            return new ProcessedTerraformingResult()
+            {
+                newTargets = target,
+                newValues = currentElements
+            };
         }
 
-        public List<OrbitBodyWithTerraformInfo> ProcessAll(List<OrbitBodyWithTerraformInfo> allTargets, long deltaTimeInSeconds)
+        public ProcessedTerraformingListResult ProcessAll(List<OrbitBodyWithTerraformInfo> allTargets, List<OrbitBodyWithCurrentElementInfo> allCurrentElements, long deltaTimeInSeconds)
         {
-            var allTargetsArrray = allTargets.ToArray();
+            var allTargetsArray = allTargets.ToArray();
             for (var counter = 0; counter < allTargets.Count; counter++)
             {
-                allTargetsArrray[counter] = ProcessOrbitBody(allTargetsArrray[counter], deltaTimeInSeconds);
+                var currentTarget = allTargetsArray[counter];
+                var relatedOrbitBodyInfo = allCurrentElements.FirstOrDefault(body => body.OrbitBodyId == currentTarget.OrbitBodyId);
+                if (relatedOrbitBodyInfo == null)
+                {
+                    relatedOrbitBodyInfo = new OrbitBodyWithCurrentElementInfo(currentTarget.OrbitBodyId);
+                    allCurrentElements.Add(relatedOrbitBodyInfo);
+                }
+
+                var processResult = ProcessOrbitBody(currentTarget, relatedOrbitBodyInfo, deltaTimeInSeconds);
+                allTargetsArray[counter] = processResult.newTargets;
+
+                relatedOrbitBodyInfo = processResult.newValues;
             }
-            return allTargetsArrray.ToList();
+
+            return new ProcessedTerraformingListResult()
+            {
+                newTargets = allTargetsArray.ToList(),
+                newValues = allCurrentElements
+            };
         }
     }
 }

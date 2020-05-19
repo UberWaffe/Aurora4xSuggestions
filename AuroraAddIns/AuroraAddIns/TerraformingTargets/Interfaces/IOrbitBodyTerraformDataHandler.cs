@@ -8,9 +8,11 @@ namespace Aurora.AddIns.TerraformingTargets.Interfaces
 {
     public interface IOrbitBodyTerraformDataHandler
     {
-        List<OrbitBodyWithTerraformInfo> GetAllOrbitBodiesTerraformInfo();
+        List<OrbitBodyWithTerraformInfo> GetAllPopulationsTerraformInfo();
+        List<OrbitBodyWithCurrentElementInfo> GetAllOrbitBodiesCurrentElementsInfo();
 
-        void SetAllOrbitBodiesTerraformInfo(List<OrbitBodyWithTerraformInfo> newValues);
+        void SetAllPopulationsTerraformInfo(List<OrbitBodyWithTerraformInfo> newValues);
+        void SetAllOrbitBodiesCurrentElementsInfo(List<OrbitBodyWithCurrentElementInfo> newValues);
 
         long GetDeltaTimeSinceLastGameUpdate();
     }
