@@ -29,6 +29,7 @@
         private void InitializeComponent()
         {
             this.listView_TerraformTargets = new System.Windows.Forms.ListView();
+            this.TargetElement = ((System.Windows.Forms.ColumnHeader)(new System.Windows.Forms.ColumnHeader()));
             this.comboBox_ChooseTargetElement = new System.Windows.Forms.ComboBox();
             this.button_SetTarget = new System.Windows.Forms.Button();
             this.button_DeleteTarget = new System.Windows.Forms.Button();
@@ -37,10 +38,11 @@
             this.button_ToggleSentences = new System.Windows.Forms.Button();
             this.textBox_SimulateSeconds = new System.Windows.Forms.TextBox();
             this.textBox_SimulateAtmPerAnnum = new System.Windows.Forms.TextBox();
-            this.TargetElement = ((System.Windows.Forms.ColumnHeader)(new System.Windows.Forms.ColumnHeader()));
             this.listView_SimulateCurrentElements = new System.Windows.Forms.ListView();
             this.Gas = ((System.Windows.Forms.ColumnHeader)(new System.Windows.Forms.ColumnHeader()));
             this.Amount = ((System.Windows.Forms.ColumnHeader)(new System.Windows.Forms.ColumnHeader()));
+            this.label1 = new System.Windows.Forms.Label();
+            this.label2 = new System.Windows.Forms.Label();
             this.SuspendLayout();
             // 
             // listView_TerraformTargets
@@ -56,6 +58,10 @@
             this.listView_TerraformTargets.Size = new System.Drawing.Size(260, 405);
             this.listView_TerraformTargets.TabIndex = 5;
             this.listView_TerraformTargets.UseCompatibleStateImageBehavior = false;
+            // 
+            // TargetElement
+            // 
+            this.TargetElement.Text = "Target Gas";
             // 
             // comboBox_ChooseTargetElement
             // 
@@ -137,10 +143,7 @@
             this.textBox_SimulateAtmPerAnnum.Name = "textBox_SimulateAtmPerAnnum";
             this.textBox_SimulateAtmPerAnnum.Size = new System.Drawing.Size(100, 20);
             this.textBox_SimulateAtmPerAnnum.TabIndex = 104;
-            // 
-            // TargetElement
-            // 
-            this.TargetElement.Text = "Target Gas";
+            this.textBox_SimulateAtmPerAnnum.TextChanged += new System.EventHandler(this.textBox_SimulateAtmPerAnnum_TextChanged);
             // 
             // listView_SimulateCurrentElements
             // 
@@ -162,12 +165,32 @@
             this.Amount.Text = "Amount";
             this.Amount.TextAlign = System.Windows.Forms.HorizontalAlignment.Right;
             // 
+            // label1
+            // 
+            this.label1.AutoSize = true;
+            this.label1.Location = new System.Drawing.Point(458, 68);
+            this.label1.Name = "label1";
+            this.label1.Size = new System.Drawing.Size(102, 13);
+            this.label1.TabIndex = 107;
+            this.label1.Text = "Seconds to simulate";
+            // 
+            // label2
+            // 
+            this.label2.AutoSize = true;
+            this.label2.Location = new System.Drawing.Point(429, 95);
+            this.label2.Name = "label2";
+            this.label2.Size = new System.Drawing.Size(131, 13);
+            this.label2.TabIndex = 108;
+            this.label2.Text = "Atm per annum to simulate";
+            // 
             // TerraformingTargetsUI
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.BackColor = System.Drawing.SystemColors.Control;
             this.ClientSize = new System.Drawing.Size(805, 576);
+            this.Controls.Add(this.label2);
+            this.Controls.Add(this.label1);
             this.Controls.Add(this.listView_SimulateCurrentElements);
             this.Controls.Add(this.textBox_SimulateAtmPerAnnum);
             this.Controls.Add(this.textBox_SimulateSeconds);
@@ -200,5 +223,7 @@
         private System.Windows.Forms.ListView listView_SimulateCurrentElements;
         private System.Windows.Forms.ColumnHeader Gas;
         private System.Windows.Forms.ColumnHeader Amount;
+        private System.Windows.Forms.Label label1;
+        private System.Windows.Forms.Label label2;
     }
 }

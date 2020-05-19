@@ -7,6 +7,6 @@ namespace Aurora.AddIns.TerraformingTargets.Models
 {
     public static class TerraformConstants
     {
-        public static readonly double CloseEnoughToMatch = 0.001;
+        public static readonly double CloseEnoughToMatch = 1.0 / (1000.0 * 1000.0 * 1000.0 * 1000.0);
     }
 }

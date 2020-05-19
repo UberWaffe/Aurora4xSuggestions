@@ -33,7 +33,7 @@ namespace Aurora.AddIns.TerraformingTargets
             UpdateGameState();
         }
 
-        public bool SetNewTargetFor(int orbitBodyId, int populationId, int elementId, double targetAmount)
+        public bool SetTargetFor(int orbitBodyId, int populationId, int elementId, double targetAmount)
         {
             var targetElement = GetOrCreateTargetsFor(orbitBodyId: orbitBodyId, populationId: populationId);
 
@@ -62,6 +62,17 @@ namespace Aurora.AddIns.TerraformingTargets
         {
             var target = _allTerraforming.FirstOrDefault(elem => elem.OrbitBodyId == orbitBodyId && elem.PopulationId == populationId);
             return target;
+        }
+
+        public List<OrbitBodyWithTerraformInfo> GetTargetsForAll()
+        {
+            return _allTerraforming;
+        }
+
+        public OrbitBodyWithCurrentElementInfo GetCurrentElementsFor(int orbitBodyId)
+        {
+            var currentValues = _allCurrentElementValues.FirstOrDefault(elem => elem.OrbitBodyId == orbitBodyId);
+            return currentValues;
         }
 
         private OrbitBodyWithTerraformInfo GetOrCreateTargetsFor(int orbitBodyId, int populationId)

@@ -295,10 +295,34 @@ namespace Aurora.AddIns.Tests.TerraformingTargets
             var managerMock = TerraformMockHelpers.SetupMock_ITerraformingManager(mockProcessedResult);
             var gameState = new TerraformGameState(gameDataHandlerMock.Object, managerMock.Object);
 
-            gameState.SetNewTargetFor(orbitBodyId: 9999, populationId: 8888, elementId: 777, targetAmount: 100.0);
+            gameState.SetTargetFor(orbitBodyId: 9999, populationId: 8888, elementId: 777, targetAmount: 100.0);
 
             var fetchTarget = gameState.GetTargetsFor(orbitBodyId: 9999, populationId: 8888);
             Assert.AreEqual(100.0, fetchTarget.DesiredTargets.GetAmount(777));
+        }
+
+        [TestMethod]
+        public void GameState_SettingTheSameElementTargetMultipleTimes_Should_EndWithTheFinalSet()
+        {
+            var mockState = TerraformMockHelpers.Setup_MockGameStateData_Targets();
+            var mockStateCurrent = TerraformMockHelpers.Setup_MockGameStateData_Elements();
+            var mockProcessedResult = new ProcessedTerraformingListResult()
+            {
+                newTargets = mockState,
+                newValues = mockStateCurrent
+            };
+
+            var gameDataHandlerMock = TerraformMockHelpers.SetupMock_IOrbitBodyTerraformDataHandler(mockState);
+            var managerMock = TerraformMockHelpers.SetupMock_ITerraformingManager(mockProcessedResult);
+            var gameState = new TerraformGameState(gameDataHandlerMock.Object, managerMock.Object);
+
+            gameState.SetTargetFor(orbitBodyId: 9999, populationId: 8888, elementId: 777, targetAmount: 100.0);
+            gameState.SetTargetFor(orbitBodyId: 9999, populationId: 8888, elementId: 777, targetAmount: 734.0);
+            gameState.SetTargetFor(orbitBodyId: 9999, populationId: 8888, elementId: 777, targetAmount: 123.0);
+            gameState.SetTargetFor(orbitBodyId: 9999, populationId: 8888, elementId: 777, targetAmount: 45.0);
+
+            var fetchTarget = gameState.GetTargetsFor(orbitBodyId: 9999, populationId: 8888);
+            Assert.AreEqual(45.0, fetchTarget.DesiredTargets.GetAmount(777));
         }
 
         [TestMethod]
@@ -316,9 +340,9 @@ namespace Aurora.AddIns.Tests.TerraformingTargets
             var managerMock = TerraformMockHelpers.SetupMock_ITerraformingManager(mockProcessedResult);
             var gameState = new TerraformGameState(gameDataHandlerMock.Object, managerMock.Object);
 
-            gameState.SetNewTargetFor(orbitBodyId: 9999, populationId: 8888, elementId: 1, targetAmount: 1.1);
-            gameState.SetNewTargetFor(orbitBodyId: 9999, populationId: 8888, elementId: 2, targetAmount: 2.2);
-            gameState.SetNewTargetFor(orbitBodyId: 9999, populationId: 8888, elementId: 3, targetAmount: 3.3);
+            gameState.SetTargetFor(orbitBodyId: 9999, populationId: 8888, elementId: 1, targetAmount: 1.1);
+            gameState.SetTargetFor(orbitBodyId: 9999, populationId: 8888, elementId: 2, targetAmount: 2.2);
+            gameState.SetTargetFor(orbitBodyId: 9999, populationId: 8888, elementId: 3, targetAmount: 3.3);
 
             gameState.DeleteTargetFor(orbitBodyId: 9999, populationId: 8888, elementId: 2);
 
@@ -343,7 +367,7 @@ namespace Aurora.AddIns.Tests.TerraformingTargets
             var managerMock = TerraformMockHelpers.SetupMock_ITerraformingManager(mockProcessedResult);
             var gameState = new TerraformGameState(gameDataHandlerMock.Object, managerMock.Object);
 
-            gameState.SetNewTargetFor(orbitBodyId: 9999, populationId: 8888, elementId: 1, targetAmount: 1.1);
+            gameState.SetTargetFor(orbitBodyId: 9999, populationId: 8888, elementId: 1, targetAmount: 1.1);
 
             var fetchTarget = gameState.GetTargetsFor(orbitBodyId: 9999, populationId: 8888);
             Assert.AreEqual(1.1, fetchTarget.DesiredTargets.GetAmount(1));
