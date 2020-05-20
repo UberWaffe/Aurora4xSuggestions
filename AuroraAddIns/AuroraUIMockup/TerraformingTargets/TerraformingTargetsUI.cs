@@ -36,28 +36,47 @@ namespace AuroraUIMockup.TerraformingTargets
             _terraformManager = new TerraformingManager(_capGetter);
             _terraformGameState = new TerraformGameState(_systemBodyData, _terraformManager);
 
-            textBox_SimulateSeconds.Text = _defaultSecondsForUpdate.ToString();
+            this.textBox_SimulateSeconds.Text = _defaultSecondsForUpdate.ToString();
             _systemBodyData.SecondsSinceLastProcessToSimulate = _defaultSecondsForUpdate;
 
-            textBox_SimulateAtmPerAnnum.Text = _defaultPerAnnumAtm.ToString();
+            this.textBox_SimulateAtmPerAnnum.Text = _defaultPerAnnumAtm.ToString();
             _capGetter.ValueToReturnForPerAnnumTerraformCapacity = _defaultPerAnnumAtm;
 
             Update_listView_SimulateCurrentElements();
-            comboBox_ChooseTargetElement.Items.AddRange(UiModelMapper.GetAllGasses().ToArray());
+            this.comboBox_ChooseTargetElement.DisplayMember = "name";
+            this.comboBox_ChooseTargetElement.ValueMember = "id";
+            this.comboBox_ChooseTargetElement.DataSource = new BindingSource(UiModelMapper.GetAllGassesNames(), null);
+
+            this.listView_TerraformTargets.Columns.Clear();
+            this.listView_TerraformTargets.Columns.Add("Gas");
+            this.listView_TerraformTargets.Columns.Add("Target Atm");
+
+            this.listView_SimulateCurrentElements.Columns.Clear();
+            this.listView_SimulateCurrentElements.Columns.Add("Gas");
+            this.listView_SimulateCurrentElements.Columns.Add("Current Atm");
+
+            textBox_TargetAmount.Text = "0.0";
         }
 
         private void button_SetTarget_Click(object sender, EventArgs e)
         {
-            var targetAmount = TextConversionsHelper.ConvertTextToDouble(textBox_TargetAmount.Text);
-            var targetId = GetSelectedTargetElementFromComboBox();
-            if (targetId.HasValue == false)
+            try
             {
-                return;
-            }
+                var targetAmount = TextConversionsHelper.ConvertTextToDouble(textBox_TargetAmount.Text);
+                var targetId = GetSelectedTargetElementFromComboBox();
+                if (targetId.HasValue == false)
+                {
+                    return;
+                }
 
-            _terraformGameState.SetTargetFor(_systemBodyId, _populationId, targetId.Value, targetAmount);
-            _systemBodyData.CurrentPopulationTerraformTargets = _terraformGameState.GetTargetsForAll();
-            UpdateTargetList();
+                _terraformGameState.SetTargetFor(_systemBodyId, _populationId, targetId.Value, targetAmount);
+                _systemBodyData.CurrentPopulationTerraformTargets = _terraformGameState.GetTargetsForAll();
+                UpdateTargetList();
+            }
+            catch (FormatException)
+            {
+                textBox_TargetAmount.Text = "0.0";
+            }
         }
 
         private void button_DeleteTarget_Click(object sender, EventArgs e)
@@ -93,13 +112,15 @@ namespace AuroraUIMockup.TerraformingTargets
 
         private int? GetSelectedTargetElementFromComboBox()
         {
-            var selectedElement = (TotallyTheRealAuroraGasModel)comboBox_ChooseTargetElement.SelectedItem;
-            if (selectedElement == null)
+            var selectedText = (string)comboBox_ChooseTargetElement.SelectedItem;
+            if (selectedText == null)
             {
                 return null;
             }
 
-            return selectedElement.id;
+            var gasId = UiModelMapper.GetGasId(selectedText);
+
+            return gasId;
         }
 
         private void UpdateTargetList()

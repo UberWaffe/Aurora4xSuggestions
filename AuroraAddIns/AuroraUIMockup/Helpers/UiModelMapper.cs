@@ -14,6 +14,8 @@ namespace AuroraUIMockup.Helpers
         public static List<ListViewItem> GenerateCurrentElementsList(OrbitBodyWithCurrentElementInfo dataToShow)
         {
             var result = new List<ListViewItem>();
+            result.Add(new ListViewItem(new[] { "Gas", "Atm" }));
+            result.Add(new ListViewItem(new[] { "", "" }));
 
             if (dataToShow != null && dataToShow.CurrentElements != null)
             {
@@ -21,14 +23,12 @@ namespace AuroraUIMockup.Helpers
                 {
                     var textToDisplay = $"{GetGasName(element.elementId)} with a total of {element.amount} Atm";
 
-                    result.Add(new ListViewItem(textToDisplay)
+                    result.Add(new ListViewItem(new[] { GetGasName(element.elementId), element.amount.ToString() })
                     {
                         Tag = element
                     });
                 }
             }
-
-            result = result.OrderBy(item => item.Text).ToList();
 
             return result;
         }
@@ -36,6 +36,8 @@ namespace AuroraUIMockup.Helpers
         public static List<ListViewItem> GenerateTargetsList(OrbitBodyWithTerraformInfo dataToShow)
         {
             var result = new List<ListViewItem>();
+            result.Add(new ListViewItem(new[] { "Gas", "Atm" }));
+            result.Add(new ListViewItem(new[] { "", "" }));
 
             if (dataToShow != null && dataToShow.DesiredTargets != null)
             {
@@ -43,14 +45,12 @@ namespace AuroraUIMockup.Helpers
                 {
                     var textToDisplay = $"{GetGasName(element.elementId)} with a target of {element.amount} Atm";
 
-                    result.Add(new ListViewItem(textToDisplay)
+                    result.Add(new ListViewItem(new[] { GetGasName(element.elementId), element.amount.ToString() })
                     {
                         Tag = element
                     });
                 }
             }
-
-            result = result.OrderBy(item => item.Text).ToList();
 
             return result;
         }
@@ -59,6 +59,23 @@ namespace AuroraUIMockup.Helpers
         {
             var allGasses = GetAllGasses();
             return allGasses.First(gas => gas.id == elementId).name;
+        }
+
+        public static int GetGasId(string gasName)
+        {
+            var allGasses = GetAllGasses();
+            return allGasses.First(gas => gas.name == gasName).id;
+        }
+
+        public static List<string> GetAllGassesNames()
+        {
+            var allGasses = GetAllGasses();
+            var result = new List<string>();
+            foreach (var gas in allGasses)
+            {
+                result.Add(gas.name);
+            }
+            return result;
         }
 
         public static List<TotallyTheRealAuroraGasModel> GetAllGasses()
