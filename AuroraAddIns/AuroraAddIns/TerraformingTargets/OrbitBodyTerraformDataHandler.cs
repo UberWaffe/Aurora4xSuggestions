@@ -1,6 +1,6 @@
 ﻿using System.Collections.Generic;
-using Aurora.AddIns.TerraformingTargets.Interfaces;
-using Aurora.AddIns.TerraformingTargets.Models;
+using Aurora.AddInsInterfacing.TerraformingTargets.Interfaces;
+using Aurora.AddInsInterfacing.TerraformingTargets.Models;
 
 namespace Aurora.AddIns.TerraformingTargets
 {

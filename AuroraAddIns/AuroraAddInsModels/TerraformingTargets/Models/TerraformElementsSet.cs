@@ -1,7 +1,7 @@
 ﻿using System.Collections.Generic;
 using System.Linq;
 
-namespace Aurora.AddIns.TerraformingTargets.Models
+namespace Aurora.AddInsInterfacing.TerraformingTargets.Models
 {
     public class TerraformElementsSet
     {

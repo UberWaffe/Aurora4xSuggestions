@@ -1,11 +1,11 @@
-﻿using Aurora.AddIns.TerraformingTargets.Models;
+﻿using Aurora.AddInsInterfacing.TerraformingTargets.Models;
 using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace Aurora.AddIns.Persist.TerraformingTargets
+namespace Aurora.AddInsInterfacing.TerraformingTargets.Interfaces
 {
     public interface ITerraformingTargetsPersist
     {

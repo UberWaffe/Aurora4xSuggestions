@@ -11,6 +11,8 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "AuroraAddInsTests", "Aurora
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "AuroraAddInsPersist", "AuroraAddInsPersist\AuroraAddInsPersist.csproj", "{B141DD08-B20F-4E21-8C7A-88D3B6E8D373}"
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "AuroraAddInsInterfacing", "AuroraAddInsModels\AuroraAddInsInterfacing.csproj", "{3A1CF006-6215-438D-B361-9FAF15E5DC4B}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -33,6 +35,10 @@ Global
 		{B141DD08-B20F-4E21-8C7A-88D3B6E8D373}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{B141DD08-B20F-4E21-8C7A-88D3B6E8D373}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{B141DD08-B20F-4E21-8C7A-88D3B6E8D373}.Release|Any CPU.Build.0 = Release|Any CPU
+		{3A1CF006-6215-438D-B361-9FAF15E5DC4B}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{3A1CF006-6215-438D-B361-9FAF15E5DC4B}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{3A1CF006-6215-438D-B361-9FAF15E5DC4B}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{3A1CF006-6215-438D-B361-9FAF15E5DC4B}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE

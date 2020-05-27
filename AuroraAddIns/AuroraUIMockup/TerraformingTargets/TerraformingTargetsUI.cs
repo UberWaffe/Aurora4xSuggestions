@@ -1,5 +1,5 @@
 ﻿using Aurora.AddIns.TerraformingTargets;
-using Aurora.AddIns.TerraformingTargets.Models;
+using Aurora.AddInsInterfacing.TerraformingTargets.Models;
 using AuroraUIMockup.Helpers;
 using AuroraUIMockup.Models;
 using System;

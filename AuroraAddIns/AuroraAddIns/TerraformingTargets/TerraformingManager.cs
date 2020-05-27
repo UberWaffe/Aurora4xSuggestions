@@ -1,5 +1,5 @@
-﻿using Aurora.AddIns.TerraformingTargets.Interfaces;
-using Aurora.AddIns.TerraformingTargets.Models;
+﻿using Aurora.AddInsInterfacing.TerraformingTargets.Interfaces;
+using Aurora.AddInsInterfacing.TerraformingTargets.Models;
 using System;
 using System.Collections.Generic;
 using System.Linq;

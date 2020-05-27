@@ -1,4 +1,4 @@
-﻿using Aurora.AddIns.TerraformingTargets.Interfaces;
+﻿using Aurora.AddInsInterfacing.TerraformingTargets.Interfaces;
 
 namespace Aurora.AddIns.TerraformingTargets
 {

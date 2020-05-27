@@ -3,7 +3,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 
-namespace Aurora.AddIns.TerraformingTargets.Interfaces
+namespace Aurora.AddInsInterfacing.TerraformingTargets.Interfaces
 {
     public interface IPopulationTerraformCapacity
     {

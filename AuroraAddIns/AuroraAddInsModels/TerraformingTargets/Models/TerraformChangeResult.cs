@@ -1,4 +1,4 @@
-﻿namespace Aurora.AddIns.TerraformingTargets.Models
+﻿namespace Aurora.AddInsInterfacing.TerraformingTargets.Models
 {
     public class TerraformChangeResult
     {

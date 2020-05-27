@@ -1,4 +1,4 @@
-﻿using Aurora.AddIns.TerraformingTargets.Models;
+﻿using Aurora.AddInsInterfacing.TerraformingTargets.Models;
 using AuroraUIMockup.Models;
 using System;
 using System.Collections.Generic;

@@ -2,11 +2,11 @@
 using System;
 using Microsoft.VisualStudio.TestTools.UnitTesting;
 using Aurora.AddIns.Tests.TestHelpers;
-using Aurora.AddIns.TerraformingTargets.Models;
+using Aurora.AddInsInterfacing.TerraformingTargets.Models;
 using System.Linq;
 using System.Collections.Generic;
 using Moq;
-using Aurora.AddIns.TerraformingTargets.Interfaces;
+using Aurora.AddInsInterfacing.TerraformingTargets.Interfaces;
 
 namespace Aurora.AddIns.Tests.TerraformingTargets
 

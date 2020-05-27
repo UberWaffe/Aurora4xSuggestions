@@ -1,7 +1,7 @@
-﻿using Aurora.AddIns.TerraformingTargets.Models;
+﻿using Aurora.AddInsInterfacing.TerraformingTargets.Models;
 using System.Collections.Generic;
 
-namespace Aurora.AddIns.TerraformingTargets.Interfaces
+namespace Aurora.AddInsInterfacing.TerraformingTargets.Interfaces
 {
     public interface ITerraformGameState
     {

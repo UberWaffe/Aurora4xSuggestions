@@ -3,9 +3,10 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
-using Aurora.AddIns.TerraformingTargets.Models;
+using Aurora.AddInsInterfacing.TerraformingTargets.Interfaces;
+using Aurora.AddInsInterfacing.TerraformingTargets.Models;
 
-namespace Aurora.AddIns.Persist.TerraformingTargets
+namespace Aurora.AddInsPersist.TerraformingTargets
 {
     public class TerraformingTargetsEF : ITerraformingTargetsPersist
     {
