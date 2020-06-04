@@ -1,12 +1,14 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.ComponentModel.DataAnnotations;
 using System.Linq;
 using System.Text;
 
-namespace Aurora.AddInsInterfacing.ExtraGameManipulation.Models
+namespace Aurora.AddInsPersist.DatabaseModels
 {
-    public class TechObject
+    public class DbTechObject
     {
+        [Key]
         public int? TechSystemID { get; set; }
         public string Name { get; set; }
         public string ComponentName { get; set; }
@@ -27,7 +29,7 @@ namespace Aurora.AddInsInterfacing.ExtraGameManipulation.Models
         public string TechDescription { get; set; }
         public int GameID { get; set; }    
         
-        public TechObject()
+        public DbTechObject()
         {
             GameID = 0;
             AdditionalInfo = 0.0;
@@ -35,32 +37,6 @@ namespace Aurora.AddInsInterfacing.ExtraGameManipulation.Models
             AdditionalInfo3 = 0.0;
             AdditionalInfo4 = 0.0;
             TechSystemID = null;
-        }
-
-        public TechObject Duplicate(string newName)
-        {
-            return new TechObject()
-            {
-                TechSystemID = null,
-                Name = newName,
-                ComponentName = this.ComponentName,
-                CategoryID = this.CategoryID,
-                RaceID = this.RaceID,
-                TechTypeID = this.TechTypeID,
-                NoTechScan = this.NoTechScan,
-                RuinOnly = this.RuinOnly,
-                Prerequisite1 = this.Prerequisite1,
-                Prerequisite2 = this.Prerequisite2,
-                StartingSystem = this.StartingSystem,
-                ConventionalSystem = this.ConventionalSystem,
-                DevelopCost = this.DevelopCost,
-                AdditionalInfo = this.AdditionalInfo,
-                AdditionalInfo2 = this.AdditionalInfo2,
-                AdditionalInfo3 = this.AdditionalInfo3,
-                AdditionalInfo4 = this.AdditionalInfo4,
-                TechDescription = this.TechDescription,
-                GameID = this.GameID
-        };
         }
     }
 }

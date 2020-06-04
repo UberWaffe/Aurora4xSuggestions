@@ -7,6 +7,8 @@ using Moq;
 using Aurora.AddInsInterfacing.ExtraGameManipulation.Interface;
 using Aurora.AddIns.ExtraGameManipulation;
 using Aurora.AddInsInterfacing.ExtraGameManipulation.Models;
+using Aurora.AddInsPersist.ExtraGameManipulation;
+using Aurora.AddIns.Technologies;
 
 namespace Aurora.AddIns.Tests.ExtraGameManipulation
 {
@@ -24,7 +26,7 @@ namespace Aurora.AddIns.Tests.ExtraGameManipulation
         [TestMethod]
         public void NewTechs_WhenGettingTechCost_Should_ReturnCorrectValue()
         {
-            var gameManip = new ExtraGameManipulator();
+            var gameManip = new TechManager();
 
             var techLevel7Cost = gameManip.GetStandardTechCostForLevel(7);
             var techLevel20Cost = gameManip.GetStandardTechCostForLevel(20);
@@ -38,7 +40,7 @@ namespace Aurora.AddIns.Tests.ExtraGameManipulation
         [TestMethod]
         public void NewTechs_WhenGettingTechCostBelow1_Should_ReturnCostOfTechLevel1()
         {
-            var gameManip = new ExtraGameManipulator();
+            var gameManip = new TechManager();
 
             Assert.AreEqual(gameManip.GetStandardTechCostForLevel(1), gameManip.GetStandardTechCostForLevel(0));
             Assert.AreEqual(gameManip.GetStandardTechCostForLevel(1), gameManip.GetStandardTechCostForLevel(-6));
@@ -47,23 +49,25 @@ namespace Aurora.AddIns.Tests.ExtraGameManipulation
         [TestMethod]
         public void NewTechs_WhenGettingTechCostAbove33_Should_ReturnCostOfTechLevel33()
         {
-            var gameManip = new ExtraGameManipulator();
+            var gameManip = new TechManager();
 
             Assert.AreEqual(gameManip.GetStandardTechCostForLevel(33), gameManip.GetStandardTechCostForLevel(34));
             Assert.AreEqual(gameManip.GetStandardTechCostForLevel(33), gameManip.GetStandardTechCostForLevel(765765));
         }
 
         [TestMethod]
-        public void NewTechs_WhenCreatingTech_Should_CreateValidObject()
+        [ExpectedException(typeof(ArgumentException), "Test already exists.")]
+        public void NewTechs_WhenInsertingIntoDb_Should_NotCreateDuplicatesByName()
         {
-            var gameManip = new ExtraGameManipulator();
-            var testTech = gameManip.NewTech(name: "Test", description: "A test tech", techType: new TechType() { TechTypeID = 99, Description = "Power Plant Technology", FieldID = 1, DistributeLowerTech = 1 }, techLevel: 7);
+            var mockDb = new Mock<IGameManipPersistentStorage>();
+            mockDb.Setup(
+                m => m.AddNewTech(It.IsAny<TechObject>())
+                ).Returns(new TechObject() { Name = "Test", TechSystemID = 7 });
 
-            Assert.AreEqual("Test", testTech.Name);
-            Assert.AreEqual("A test tech", testTech.TechDescription);
-            Assert.AreEqual(99, testTech.TechTypeID);
-            Assert.AreEqual(1, testTech.CategoryID);
-            Assert.AreEqual(gameManip.GetStandardTechCostForLevel(7), testTech.DevelopCost);
+
+            var gameManip = new TechManager(mockDb.Object);
+            var testTech = gameManip.NewGlobalTech(name: "Test", description: "A test tech", techType: new TechType() { TechTypeID = 99, Description = "Power Plant Technology", FieldID = 1, DistributeLowerTech = 1 }, techLevel: 7);
+            var testTech2 = gameManip.NewGlobalTech(name: "Test", description: "A test tech", techType: new TechType() { TechTypeID = 99, Description = "Power Plant Technology", FieldID = 1, DistributeLowerTech = 1 }, techLevel: 7);
         }
 
         [TestMethod]
@@ -89,7 +93,8 @@ namespace Aurora.AddIns.Tests.ExtraGameManipulation
         public void TechTypes_WhenGettingAllTechTypesMultipleTimes_Should_OnlyGetFromStorageOnce()
         {
             var mockPersistor = new Mock<IGameManipPersistentStorage>();
-            var gameManip = new ExtraGameManipulator(mockPersistor.Object);
+            var mockTechs = new Mock<ITechsManipulation>();
+            var gameManip = new ExtraGameManipulator(mockPersistor.Object, mockTechs.Object);
 
             mockPersistor.Setup(
                 m => m.GetAllTechTypesFromStorage()
@@ -101,5 +106,45 @@ namespace Aurora.AddIns.Tests.ExtraGameManipulation
 
             mockPersistor.Verify(m => m.GetAllTechTypesFromStorage(), Times.Once);
         }
+
+        [TestMethod]
+        public void Techs_WhenGettingAllTechsMultipleTimes_Should_OnlyGetFromStorageOnce()
+        {
+            var mockPersistor = new Mock<IGameManipPersistentStorage>();
+            var techManip = new TechManager(mockPersistor.Object);
+
+            mockPersistor.Setup(
+                m => m.GetAllTechsFromStorage()
+                ).Returns(new List<TechObject>() { new TechObject() });
+
+            techManip.GetAllTechs();
+            techManip.GetAllTechs();
+            techManip.GetAllTechs();
+
+            mockPersistor.Verify(m => m.GetAllTechsFromStorage(), Times.Once);
+        }
+
+        [TestMethod]
+        public void Techs_WhenCheckingForExistingTechs_Should_ReturnTrueIfNamePresent()
+        {
+            var gameManip = new TechManager();
+            var isPresent = gameManip.CheckIfTechExists("Trans-Newtonian Technology");
+
+            Assert.IsTrue(isPresent);
+        }
+
+        [TestMethod]
+        public void Techs_WhenAddingExtendedTechs_Should_HaveValidIdsAndPrerequisites()
+        {
+            var testClass = new TechManager();
+            testClass.AddInExtendedTechs();
+
+            var testTech = testClass.GetTechByName("Fission/Fusion Matter Manipulation Technologies");
+            Assert.IsNotNull(testTech.TechSystemID);
+
+            var testTech2 = testClass.GetTechByName("Energy and Field Manipulation Technology");
+            Assert.IsNotNull(testTech2.TechSystemID);
+        }
+
     }
 }

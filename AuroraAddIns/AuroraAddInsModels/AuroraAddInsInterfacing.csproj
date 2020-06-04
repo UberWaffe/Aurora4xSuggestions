@@ -47,6 +47,7 @@
     <Compile Include="ExpandedCivilianCompanies\Interface\IExpandedCivilianCompaniesSaveLoad.cs" />
     <Compile Include="ExpandedCivilianCompanies\Interface\IExpandedCivilianCompaniesShipPurchase.cs" />
     <Compile Include="ExpandedCivilianCompanies\Models\CivilianCompanyFinances.cs" />
+    <Compile Include="ExtraGameManipulation\Interface\ITechsManipulation.cs" />
     <Compile Include="ExtraGameManipulation\Interface\IExtraGameManipulation.cs" />
     <Compile Include="ExtraGameManipulation\Interface\IGameManipPersistentStorage.cs" />
     <Compile Include="ExtraGameManipulation\Models\TechObject.cs" />

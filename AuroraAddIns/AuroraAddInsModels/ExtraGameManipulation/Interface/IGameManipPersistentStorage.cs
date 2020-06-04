@@ -10,5 +10,9 @@ namespace Aurora.AddInsInterfacing.ExtraGameManipulation.Interface
     public interface IGameManipPersistentStorage
     {
         List<TechType> GetAllTechTypesFromStorage();
+
+        List<TechObject> GetAllTechsFromStorage();
+
+        TechObject AddNewTech(TechObject newTech);
     }
 }

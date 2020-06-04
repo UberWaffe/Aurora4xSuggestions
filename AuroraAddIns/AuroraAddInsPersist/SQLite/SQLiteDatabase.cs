@@ -1,4 +1,6 @@
-﻿using Dapper;
+﻿using Aurora.AddInsPersist.DatabaseModels;
+using Dapper;
+using Dapper.Contrib.Extensions;
 using System;
 using System.Collections.Generic;
 using System.Data;
@@ -21,6 +23,37 @@ namespace Aurora.AddInsPersist.SQLite
             _connectionString = "Data Source=AuroraAddInsDB.db;Version=3;New=False;Compress=True;";
         }
 
+
+        public long? InsertTech(DbTechObject objectToSave)
+        {
+            try
+            {
+                var sQLiteConnection = new SQLiteConnection(this._connectionString);
+                sQLiteConnection.Open();
+                var result = InsertTech(sQLiteConnection, objectToSave);
+                sQLiteConnection.Close();
+                return result;
+            }
+            catch (Exception)
+            {
+                throw;
+            }
+        }
+
+        public long? InsertTech(SQLiteConnection theConnection, DbTechObject objectToSave)
+        {
+            long? result = null;
+            try
+            {
+                result = theConnection.Insert(objectToSave);
+            }
+            catch (Exception)
+            {
+                theConnection.Close();
+                throw;
+            }
+            return result;
+        }
 
         public List<T> GetQueryResult<T>(string queryString)
         {

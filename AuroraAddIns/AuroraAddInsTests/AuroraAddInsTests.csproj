@@ -98,6 +98,10 @@
       <Project>{3a1cf006-6215-438d-b361-9faf15e5dc4b}</Project>
       <Name>AuroraAddInsInterfacing</Name>
     </ProjectReference>
+    <ProjectReference Include="..\AuroraAddInsPersist\AuroraAddInsPersist.csproj">
+      <Project>{b141dd08-b20f-4e21-8c7a-88d3b6e8d373}</Project>
+      <Name>AuroraAddInsPersist</Name>
+    </ProjectReference>
     <ProjectReference Include="..\AuroraAddIns\AuroraAddIns.csproj">
       <Project>{e85c1f3e-bae6-460f-a0b9-7e80f62f37a8}</Project>
       <Name>AuroraAddIns</Name>

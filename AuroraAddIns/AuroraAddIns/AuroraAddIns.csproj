@@ -46,6 +46,7 @@
     <Compile Include="ExtraGameManipulation\ExtraGameManipulationConstants.cs" />
     <Compile Include="ExtraGameManipulation\ExtraGameManipulator.cs" />
     <Compile Include="ExtraGameManipulation\MathHelper.cs" />
+    <Compile Include="Technologies\TechManager.cs" />
     <Compile Include="TerraformingTargets\OrbitBodyTerraformDataHandler.cs" />
     <Compile Include="TerraformingTargets\TerraformGameState.cs" />
     <Compile Include="TerraformingTargets\PopulationTerraformingCapacityGetter.cs" />
