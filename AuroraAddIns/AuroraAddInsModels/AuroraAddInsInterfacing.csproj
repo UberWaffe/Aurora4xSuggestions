@@ -44,6 +44,8 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="AuroraFeatures\Interfaces\IResearchPrerequisites.cs" />
+    <Compile Include="AuroraFeatures\Models\ResearchPrerequisites.cs" />
     <Compile Include="AuroraCore\Models\ShipClassComponent.cs" />
     <Compile Include="AuroraCore\Models\ShipClassDesign.cs" />
     <Compile Include="AuroraCore\Models\TNMineralsSet.cs" />
@@ -56,9 +58,10 @@
     <Compile Include="ExtraGameManipulation\Interface\ITechsManipulation.cs" />
     <Compile Include="ExtraGameManipulation\Interface\IExtraGameManipulation.cs" />
     <Compile Include="ExtraGameManipulation\Interface\IGameManipPersistentStorage.cs" />
-    <Compile Include="ExtraGameManipulation\Models\TechObject.cs" />
-    <Compile Include="ExtraGameManipulation\Models\TechType.cs" />
+    <Compile Include="AuroraCore\Models\TechObject.cs" />
+    <Compile Include="AuroraCore\Models\TechType.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
+    <Compile Include="ShipComponents\Models\ShipComponentEx.cs" />
     <Compile Include="TerraformingTargets\Interfaces\IOrbitBodyTerraformDataHandler.cs" />
     <Compile Include="TerraformingTargets\Interfaces\IPopulationTerraformCapacity.cs" />
     <Compile Include="TerraformingTargets\Interfaces\ITerraformGameState.cs" />
@@ -73,6 +76,9 @@
     <Compile Include="TerraformingTargets\Models\TerraformElement.cs" />
     <Compile Include="TerraformingTargets\Models\TerraformElementsSet.cs" />
     <Compile Include="TerraformingTargets\Models\TerraformMutipleAdjustmentResult.cs" />
+  </ItemGroup>
+  <ItemGroup>
+    <Folder Include="ExtraGameManipulation\Models\" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
 </Project>

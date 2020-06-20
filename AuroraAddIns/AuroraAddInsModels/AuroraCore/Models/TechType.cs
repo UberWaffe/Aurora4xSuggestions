@@ -3,7 +3,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 
-namespace Aurora.AddInsInterfacing.ExtraGameManipulation.Models
+namespace Aurora.AddInsInterfacing.AuroraCore.Models
 {
     public class TechType
     {

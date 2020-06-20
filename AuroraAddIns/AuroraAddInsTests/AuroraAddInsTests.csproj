@@ -84,6 +84,8 @@
   <ItemGroup>
     <Compile Include="ExpandedCivilianCompanies\ExpandedCivilianCompaniesTests.cs" />
     <Compile Include="ExtraGameManipulation\ExtraGameManipulationTests.cs" />
+    <Compile Include="PrerequisiteChecks\PrerequisiteChecksTests.cs" />
+    <Compile Include="FlexibleComponentDesign\FlexibleComponentDesignTests.cs" />
     <Compile Include="TerraformingTargets\TerraformingTargetsTests.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="TerraformingTargets\TerraformMockHelpers.cs" />

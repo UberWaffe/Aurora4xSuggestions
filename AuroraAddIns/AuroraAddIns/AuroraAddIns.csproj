@@ -43,6 +43,7 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="AuroraFeatures\ResearchPrerequisitesWorker.cs" />
     <Compile Include="ExpandedCivilianCompanies\TradeRoute.cs" />
     <Compile Include="ExtraGameManipulation\ExtraGameManipulationConstants.cs" />
     <Compile Include="ExtraGameManipulation\ExtraGameManipulator.cs" />

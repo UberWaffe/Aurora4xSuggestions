@@ -5,6 +5,8 @@ using System.Linq;
 using System.Collections.Generic;
 using Moq;
 using Aurora.AddInsInterfacing.ExpandedCivilianCompanies.Models;
+using Aurora.AddInsInterfacing.AuroraCore.Models;
+using Aurora.AddIns.ExpandedCivilianCompanies;
 
 namespace Aurora.AddIns.Tests.ExpandedCivilianCompanies
 {
@@ -37,7 +39,7 @@ namespace Aurora.AddIns.Tests.ExpandedCivilianCompanies
         public void TradeRoute_WhenCheckingShipValidForJoiningRoute_Should_RespondYesIfShipDesignMeetsAllCriteria()
         {
             var tradeRoute = new TradeRoute();
-            var shipDesignToCheck = new ShipDesign();
+            var shipDesignToCheck = new ShipClassDesign();
             var shipIsValid = tradeRoute.ShipDesignValidForRoute(shipDesignToCheck);
 
             Assert.IsTrue(shipIsValid);

@@ -1,6 +1,6 @@
 ﻿using Aurora.AddIns.Technologies;
 using Aurora.AddInsInterfacing.ExtraGameManipulation.Interface;
-using Aurora.AddInsInterfacing.ExtraGameManipulation.Models;
+using Aurora.AddInsInterfacing.AuroraCore.Models;
 using Aurora.AddInsPersist.ExtraGameManipulation;
 using System;
 using System.Collections.Generic;

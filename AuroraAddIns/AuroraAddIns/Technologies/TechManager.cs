@@ -1,6 +1,6 @@
 ﻿using Aurora.AddIns.ExtraGameManipulation;
 using Aurora.AddInsInterfacing.ExtraGameManipulation.Interface;
-using Aurora.AddInsInterfacing.ExtraGameManipulation.Models;
+using Aurora.AddInsInterfacing.AuroraCore.Models;
 using Aurora.AddInsPersist.ExtraGameManipulation;
 using System;
 using System.Collections.Generic;
@@ -104,7 +104,7 @@ namespace Aurora.AddIns.Technologies
 
         public bool CheckIfTechExists(string techName)
         {
-            return (GetTechByName(techName) == null)
+            return (GetTechByName(techName) != null);
         }
 
         public TechObject GetTechByName(string techName)

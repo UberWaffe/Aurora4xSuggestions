@@ -6,9 +6,10 @@ using System.Collections.Generic;
 using Moq;
 using Aurora.AddInsInterfacing.ExtraGameManipulation.Interface;
 using Aurora.AddIns.ExtraGameManipulation;
-using Aurora.AddInsInterfacing.ExtraGameManipulation.Models;
+using Aurora.AddInsInterfacing.AuroraCore.Models;
 using Aurora.AddInsPersist.ExtraGameManipulation;
 using Aurora.AddIns.Technologies;
+using Aurora.AddInsInterfacing.AuroraCore.Models;
 
 namespace Aurora.AddIns.Tests.ExtraGameManipulation
 {

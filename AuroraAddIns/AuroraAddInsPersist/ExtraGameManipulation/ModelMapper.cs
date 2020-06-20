@@ -1,4 +1,4 @@
-﻿using Aurora.AddInsInterfacing.ExtraGameManipulation.Models;
+﻿using Aurora.AddInsInterfacing.AuroraCore.Models;
 using Aurora.AddInsPersist.DatabaseModels;
 using AutoMapper;
 using System;

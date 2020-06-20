@@ -1,4 +1,4 @@
-﻿using Aurora.AddInsInterfacing.ExtraGameManipulation.Models;
+﻿using Aurora.AddInsInterfacing.AuroraCore.Models;
 using System;
 using System.Collections.Generic;
 using System.Linq;

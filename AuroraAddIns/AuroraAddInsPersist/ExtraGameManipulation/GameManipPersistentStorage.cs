@@ -1,5 +1,5 @@
-﻿using Aurora.AddInsInterfacing.ExtraGameManipulation.Interface;
-using Aurora.AddInsInterfacing.ExtraGameManipulation.Models;
+﻿using Aurora.AddInsInterfacing.AuroraCore.Models;
+using Aurora.AddInsInterfacing.ExtraGameManipulation.Interface;
 using Aurora.AddInsPersist.DatabaseModels;
 using Aurora.AddInsPersist.SQLite;
 using System;
