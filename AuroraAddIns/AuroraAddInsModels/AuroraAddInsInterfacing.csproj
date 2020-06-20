@@ -44,9 +44,15 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="AuroraCore\Models\ShipClassComponent.cs" />
+    <Compile Include="AuroraCore\Models\ShipClassDesign.cs" />
+    <Compile Include="AuroraCore\Models\TNMineralsSet.cs" />
+    <Compile Include="AuroraCore\Models\ShipComponent.cs" />
     <Compile Include="ExpandedCivilianCompanies\Interface\IExpandedCivilianCompaniesSaveLoad.cs" />
     <Compile Include="ExpandedCivilianCompanies\Interface\IExpandedCivilianCompaniesShipPurchase.cs" />
+    <Compile Include="ExpandedCivilianCompanies\Interface\ITradeRoute.cs" />
     <Compile Include="ExpandedCivilianCompanies\Models\CivilianCompanyFinances.cs" />
+    <Compile Include="ExpandedCivilianCompanies\Models\TradePriorityEnum.cs" />
     <Compile Include="ExtraGameManipulation\Interface\ITechsManipulation.cs" />
     <Compile Include="ExtraGameManipulation\Interface\IExtraGameManipulation.cs" />
     <Compile Include="ExtraGameManipulation\Interface\IGameManipPersistentStorage.cs" />

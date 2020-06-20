@@ -4,6 +4,7 @@ using Aurora.AddIns.Tests.TestHelpers;
 using System.Linq;
 using System.Collections.Generic;
 using Moq;
+using Aurora.AddInsInterfacing.ExpandedCivilianCompanies.Models;
 
 namespace Aurora.AddIns.Tests.ExpandedCivilianCompanies
 {
@@ -16,6 +17,30 @@ namespace Aurora.AddIns.Tests.ExpandedCivilianCompanies
         public void Initialize()
         {
             _dice = new DiceRoller();
+        }
+
+        [TestMethod]
+        public void TradeRoute_ShouldBeAbleTo_Give_ListOfTradePriorities()
+        {
+            var tradeRoute = new TradeRoute();
+            var tradePriorities = tradeRoute.GetTrades();
+
+            Assert.AreEqual(TradePriorityEnum.PlanetaryInstallations, tradePriorities[0]);
+            Assert.AreEqual(TradePriorityEnum.TNMinerals, tradePriorities[1]);
+            Assert.AreEqual(TradePriorityEnum.Colonists, tradePriorities[2]);
+            Assert.AreEqual(TradePriorityEnum.Fuel, tradePriorities[3]);
+            Assert.AreEqual(TradePriorityEnum.MaintenanceSupply, tradePriorities[4]);
+            Assert.AreEqual(TradePriorityEnum.SNGoodsAndResources, tradePriorities[5]);
+        }
+
+        [TestMethod]
+        public void TradeRoute_WhenCheckingShipValidForJoiningRoute_Should_RespondYesIfShipDesignMeetsAllCriteria()
+        {
+            var tradeRoute = new TradeRoute();
+            var shipDesignToCheck = new ShipDesign();
+            var shipIsValid = tradeRoute.ShipDesignValidForRoute(shipDesignToCheck);
+
+            Assert.IsTrue(shipIsValid);
         }
 
         [TestMethod]
