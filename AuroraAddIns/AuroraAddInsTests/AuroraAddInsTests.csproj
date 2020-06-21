@@ -82,6 +82,7 @@
     </Reference>
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="AuroraFeatures\TechnologyEffectDescriberTests.cs" />
     <Compile Include="ExpandedCivilianCompanies\ExpandedCivilianCompaniesTests.cs" />
     <Compile Include="ExtraGameManipulation\ExtraGameManipulationTests.cs" />
     <Compile Include="PrerequisiteChecks\PrerequisiteChecksTests.cs" />

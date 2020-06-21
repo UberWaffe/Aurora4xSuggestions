@@ -44,12 +44,15 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="AuroraCore\Enums\AuroraTechTypes.cs" />
+    <Compile Include="AuroraFeatures\Enums\TechEffectEnum.cs" />
     <Compile Include="AuroraFeatures\Interfaces\IResearchPrerequisites.cs" />
     <Compile Include="AuroraFeatures\Models\ResearchPrerequisites.cs" />
     <Compile Include="AuroraCore\Models\ShipClassComponent.cs" />
     <Compile Include="AuroraCore\Models\ShipClassDesign.cs" />
     <Compile Include="AuroraCore\Models\TNMineralsSet.cs" />
     <Compile Include="AuroraCore\Models\ShipComponent.cs" />
+    <Compile Include="AuroraFeatures\Models\TechEffectDescription.cs" />
     <Compile Include="ExpandedCivilianCompanies\Interface\IExpandedCivilianCompaniesSaveLoad.cs" />
     <Compile Include="ExpandedCivilianCompanies\Interface\IExpandedCivilianCompaniesShipPurchase.cs" />
     <Compile Include="ExpandedCivilianCompanies\Interface\ITradeRoute.cs" />

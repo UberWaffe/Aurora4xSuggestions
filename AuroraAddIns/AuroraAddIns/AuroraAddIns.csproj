@@ -44,6 +44,7 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="AuroraFeatures\ResearchPrerequisitesWorker.cs" />
+    <Compile Include="AuroraFeatures\TechnologyEffectDescriber.cs" />
     <Compile Include="ExpandedCivilianCompanies\TradeRoute.cs" />
     <Compile Include="ExtraGameManipulation\ExtraGameManipulationConstants.cs" />
     <Compile Include="ExtraGameManipulation\ExtraGameManipulator.cs" />

@@ -7,6 +7,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using Aurora.AddInsInterfacing.AuroraCore.Enums;
 
 namespace Aurora.AddIns.Technologies
 {
@@ -42,7 +43,7 @@ namespace Aurora.AddIns.Technologies
                 TechDescription = description,
                 DevelopCost = GetStandardTechCostForLevel(techLevel: techLevel),
                 CategoryID = techType.FieldID,
-                TechTypeID = techType.TechTypeID,
+                TechType = (AuroraTechTypes)techType.TechTypeID,
                 GameID = 0,
                 RaceID = 0,
                 AdditionalInfo = info1,

@@ -1,4 +1,5 @@
-﻿using System;
+﻿using Aurora.AddInsInterfacing.AuroraCore.Enums;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
@@ -12,7 +13,7 @@ namespace Aurora.AddInsInterfacing.AuroraCore.Models
         public string ComponentName { get; set; }
         public int CategoryID { get; set; }
         public int RaceID { get; set; }
-        public int TechTypeID { get; set; }
+        public AuroraTechTypes TechType { get; set; }
         public bool NoTechScan { get; set; }
         public bool RuinOnly { get; set; }
         public int Prerequisite1 { get; set; }
@@ -46,7 +47,7 @@ namespace Aurora.AddInsInterfacing.AuroraCore.Models
                 ComponentName = this.ComponentName,
                 CategoryID = this.CategoryID,
                 RaceID = this.RaceID,
-                TechTypeID = this.TechTypeID,
+                TechType = this.TechType,
                 NoTechScan = this.NoTechScan,
                 RuinOnly = this.RuinOnly,
                 Prerequisite1 = this.Prerequisite1,

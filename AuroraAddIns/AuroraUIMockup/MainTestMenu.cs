@@ -1,4 +1,5 @@
-﻿using AuroraUIMockup.TerraformingTargets;
+﻿using AuroraUIMockup.FlexibleComponentDesign;
+using AuroraUIMockup.TerraformingTargets;
 using System;
 using System.Collections.Generic;
 using System.ComponentModel;
@@ -26,6 +27,12 @@ namespace AuroraUIMockup
         {
             var terraformMockup = new TerraformingTargetsUI();
             terraformMockup.Show();
+        }
+
+        private void button2_Click(object sender, EventArgs e)
+        {
+            var componentDesignMockup = new FlexibleComponentDesignUI();
+            componentDesignMockup.Show();
         }
     }
 }
