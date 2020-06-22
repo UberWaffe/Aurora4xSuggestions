@@ -8,9 +8,9 @@ using System.Text;
 using System.Threading.Tasks;
 using System.Windows.Forms;
 
-namespace AuroraUIMockup.TerraformingTargets
+namespace AuroraUIMockup.FlexibleComponentDesign
 {
-    public abstract class TechInfoButtonUiElement : InfoButtonBaseElement
+    public class TechInfoButtonUiElement : InfoButtonBaseElement
     {
         private TechObject _linkedTech;
         private TextInfoPopup _infoPopup;

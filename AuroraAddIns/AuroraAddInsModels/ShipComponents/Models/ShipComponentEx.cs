@@ -10,11 +10,11 @@ namespace Aurora.AddInsInterfacing.AuroraCore.Models
     {
 	    public long Id { get; set; }
 	    public string Name { get; set; }
-        public TNMineralsSet TNMineralCost { get; set; }
+        public PurchaseCostSet Cost { get; set; }
 
         public ShipComponentEx()
         {
-            this.TNMineralCost = new TNMineralsSet();
+            this.Cost = new PurchaseCostSet();
         }
     }
 }

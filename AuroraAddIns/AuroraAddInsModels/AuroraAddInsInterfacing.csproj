@@ -45,6 +45,8 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="AuroraCore\Enums\AuroraTechTypes.cs" />
+    <Compile Include="AuroraFeatures\Enums\ShipComponentTypesEnum.cs" />
+    <Compile Include="AuroraFeatures\Enums\DesignInputTypeEnum.cs" />
     <Compile Include="AuroraFeatures\Enums\TechEffectEnum.cs" />
     <Compile Include="AuroraFeatures\Interfaces\IResearchPrerequisites.cs" />
     <Compile Include="AuroraFeatures\Models\ResearchPrerequisites.cs" />
@@ -52,7 +54,10 @@
     <Compile Include="AuroraCore\Models\ShipClassDesign.cs" />
     <Compile Include="AuroraCore\Models\TNMineralsSet.cs" />
     <Compile Include="AuroraCore\Models\ShipComponent.cs" />
+    <Compile Include="AuroraFeatures\Models\PurchaseCostSet.cs" />
+    <Compile Include="AuroraFeatures\Models\TechDesignInputDescription.cs" />
     <Compile Include="AuroraFeatures\Models\TechEffectDescription.cs" />
+    <Compile Include="AuroraFeatures\Models\ResourcesSet.cs" />
     <Compile Include="ExpandedCivilianCompanies\Interface\IExpandedCivilianCompaniesSaveLoad.cs" />
     <Compile Include="ExpandedCivilianCompanies\Interface\IExpandedCivilianCompaniesShipPurchase.cs" />
     <Compile Include="ExpandedCivilianCompanies\Interface\ITradeRoute.cs" />

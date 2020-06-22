@@ -66,6 +66,8 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="FlexibleComponentDesign\ComponentInputsUiCreator.cs" />
+    <Compile Include="FlexibleComponentDesign\DynamicUiCreator.cs" />
     <Compile Include="FlexibleComponentDesign\TextInfoPopup.cs">
       <SubType>Form</SubType>
     </Compile>

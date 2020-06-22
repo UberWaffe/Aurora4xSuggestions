@@ -5,7 +5,7 @@ using System.Text;
 using System.Threading.Tasks;
 using System.Windows.Forms;
 
-namespace AuroraUIMockup.TerraformingTargets
+namespace AuroraUIMockup.FlexibleComponentDesign
 {
     public class ComponentTypeElement : DropdownListBaseUiElement
     {

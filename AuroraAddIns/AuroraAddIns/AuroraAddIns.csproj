@@ -44,11 +44,13 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="AuroraFeatures\ResearchPrerequisitesWorker.cs" />
+    <Compile Include="AuroraFeatures\ShipComponentDescriber.cs" />
     <Compile Include="AuroraFeatures\TechnologyEffectDescriber.cs" />
     <Compile Include="ExpandedCivilianCompanies\TradeRoute.cs" />
     <Compile Include="ExtraGameManipulation\ExtraGameManipulationConstants.cs" />
     <Compile Include="ExtraGameManipulation\ExtraGameManipulator.cs" />
     <Compile Include="ExtraGameManipulation\MathHelper.cs" />
+    <Compile Include="AuroraFeatures\DesignInputDescriptors\InputDescriberMilitaryOrCommercial.cs" />
     <Compile Include="Technologies\ExtendedTechnologies.cs" />
     <Compile Include="Technologies\TechManager.cs" />
     <Compile Include="TerraformingTargets\OrbitBodyTerraformDataHandler.cs" />
