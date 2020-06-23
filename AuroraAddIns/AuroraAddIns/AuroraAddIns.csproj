@@ -43,6 +43,19 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="AuroraFeatures\DesignInputDescriptors\InputDescriberCostEffortMod.cs" />
+    <Compile Include="AuroraFeatures\DesignInputDescriptors\InputDescriberMspOnBreakMod.cs" />
+    <Compile Include="AuroraFeatures\DesignInputDescriptors\InputDescriberCrewNeededMod.cs" />
+    <Compile Include="AuroraFeatures\DesignInputDescriptors\InputDescriberBreakdownChangeOnActiveUse.cs" />
+    <Compile Include="AuroraFeatures\DesignInputDescriptors\InputDescriberResearchCostMod.cs" />
+    <Compile Include="AuroraFeatures\DesignInputDescriptors\InputDescriberCostMineralsMod.cs" />
+    <Compile Include="AuroraFeatures\DesignInputDescriptors\InputDescriberThermalReductionMod.cs" />
+    <Compile Include="AuroraFeatures\DesignInputDescriptors\InputDescriberFuelUseMod.cs" />
+    <Compile Include="AuroraFeatures\DesignInputDescriptors\InputDescriberEnginePowerMod.cs" />
+    <Compile Include="AuroraFeatures\DesignInputDescriptors\InputDescriberThermalReduction.cs" />
+    <Compile Include="AuroraFeatures\DesignInputDescriptors\InputDescriberFuelUse.cs" />
+    <Compile Include="AuroraFeatures\DesignInputDescriptors\InputDescriberEnginePower.cs" />
+    <Compile Include="AuroraFeatures\DesignInputDescriptors\InputDescriberSize.cs" />
     <Compile Include="AuroraFeatures\ResearchPrerequisitesWorker.cs" />
     <Compile Include="AuroraFeatures\ShipComponentDescriber.cs" />
     <Compile Include="AuroraFeatures\TechnologyEffectDescriber.cs" />

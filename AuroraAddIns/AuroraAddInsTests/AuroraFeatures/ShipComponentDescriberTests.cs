@@ -28,52 +28,52 @@ namespace Aurora.AddIns.Tests.FlexibleComponentDesign
             var designInputs = ShipComponentDescriber.GetDesignInputs(componentType);
 
             var pos = 0;
-            ShipComponentDescriber_TestDesignInputs(designInputs[pos], DesignInputTypeEnum.Choice, "IsMilitary", "Military or Commercial design");
+            ShipComponentDescriber_TestDesignInputs(designInputs[pos], DesignInputTypeEnum.Choice, TechDesignInternalEnum.IsMilitary, "Military or Commercial design");
 
             pos++;
-            ShipComponentDescriber_TestDesignInputs(designInputs[pos], DesignInputTypeEnum.Number, "SizeInHS", "Component Size");
+            ShipComponentDescriber_TestDesignInputs(designInputs[pos], DesignInputTypeEnum.Number, TechDesignInternalEnum.SizeInHS, "Component Size");
 
             pos++;
-            ShipComponentDescriber_TestDesignInputs(designInputs[pos], DesignInputTypeEnum.Tech, "EnginePower", "Engine Power");
+            ShipComponentDescriber_TestDesignInputs(designInputs[pos], DesignInputTypeEnum.Tech, TechDesignInternalEnum.EnginePower, "Engine Power");
 
             pos++;
-            ShipComponentDescriber_TestDesignInputs(designInputs[pos], DesignInputTypeEnum.Choice, "EnginePowerMod", "Engine Power Modifier");
+            ShipComponentDescriber_TestDesignInputs(designInputs[pos], DesignInputTypeEnum.Choice, TechDesignInternalEnum.EnginePowerMod, "Engine Power Modifier");
 
             pos++;
-            ShipComponentDescriber_TestDesignInputs(designInputs[pos], DesignInputTypeEnum.Tech, "FuelUse", "Fuel Efficiency");
+            ShipComponentDescriber_TestDesignInputs(designInputs[pos], DesignInputTypeEnum.Tech, TechDesignInternalEnum.FuelUse, "Fuel Efficiency");
 
             pos++;
-            ShipComponentDescriber_TestDesignInputs(designInputs[pos], DesignInputTypeEnum.Choice, "FuelUseMod", "Fuel Efficiency Modifier");
+            ShipComponentDescriber_TestDesignInputs(designInputs[pos], DesignInputTypeEnum.Choice, TechDesignInternalEnum.FuelUseMod, "Fuel Efficiency Modifier");
 
             pos++;
-            ShipComponentDescriber_TestDesignInputs(designInputs[pos], DesignInputTypeEnum.Tech, "ThermalReduction", "Thermal Reduction");
+            ShipComponentDescriber_TestDesignInputs(designInputs[pos], DesignInputTypeEnum.Tech, TechDesignInternalEnum.ThermalReduction, "Thermal Reduction");
 
             pos++;
-            ShipComponentDescriber_TestDesignInputs(designInputs[pos], DesignInputTypeEnum.Choice, "ThermalReductionMod", "Thermal Reduction Modifier");
+            ShipComponentDescriber_TestDesignInputs(designInputs[pos], DesignInputTypeEnum.Choice, TechDesignInternalEnum.ThermalReductionMod, "Thermal Reduction Modifier");
 
             pos++;
-            ShipComponentDescriber_TestDesignInputs(designInputs[pos], DesignInputTypeEnum.Choice, "CostMineralsMod", "Manufacture TN Cost Modifier");
+            ShipComponentDescriber_TestDesignInputs(designInputs[pos], DesignInputTypeEnum.Choice, TechDesignInternalEnum.CostMineralsMod, "Manufacture TN Cost Modifier");
 
             pos++;
-            ShipComponentDescriber_TestDesignInputs(designInputs[pos], DesignInputTypeEnum.Choice, "CostEffortMod", "Manufacture BP Cost Modifier");
+            ShipComponentDescriber_TestDesignInputs(designInputs[pos], DesignInputTypeEnum.Choice, TechDesignInternalEnum.CostEffortMod, "Manufacture BP Cost Modifier");
 
             pos++;
-            ShipComponentDescriber_TestDesignInputs(designInputs[pos], DesignInputTypeEnum.Choice, "MspOnBreakMod", "Maintenance MSP Cost Modifier");
+            ShipComponentDescriber_TestDesignInputs(designInputs[pos], DesignInputTypeEnum.Choice, TechDesignInternalEnum.MspOnBreakMod, "Maintenance MSP Cost Modifier");
 
             pos++;
-            ShipComponentDescriber_TestDesignInputs(designInputs[pos], DesignInputTypeEnum.Choice, "CrewNeededMod", "Crew Requirement Modifier");
+            ShipComponentDescriber_TestDesignInputs(designInputs[pos], DesignInputTypeEnum.Choice, TechDesignInternalEnum.CrewNeededMod, "Crew Requirement Modifier");
 
             pos++;
-            ShipComponentDescriber_TestDesignInputs(designInputs[pos], DesignInputTypeEnum.Choice, "ResearchCostMod", "Research Cost Modifier");
+            ShipComponentDescriber_TestDesignInputs(designInputs[pos], DesignInputTypeEnum.Choice, TechDesignInternalEnum.ResearchCostMod, "Research Cost Modifier");
 
             pos++;
-            ShipComponentDescriber_TestDesignInputs(designInputs[pos], DesignInputTypeEnum.Choice, "", "");
+            ShipComponentDescriber_TestDesignInputs(designInputs[pos], DesignInputTypeEnum.Choice, TechDesignInternalEnum.BreakdownChangeOnActiveUse, "Active use Breakdown Chance");
         }
 
-        private void ShipComponentDescriber_TestDesignInputs(TechDesignInputDescription inputDesc, DesignInputTypeEnum expectedType, string expectedName, string expectedDesc)
+        private void ShipComponentDescriber_TestDesignInputs(TechDesignInputDescription inputDesc, DesignInputTypeEnum expectedType, TechDesignInternalEnum expectedInternal, string expectedDesc)
         {
             Assert.AreEqual(expectedType, inputDesc.Type);
-            Assert.AreEqual(expectedName, inputDesc.InternalName);
+            Assert.AreEqual(expectedInternal, inputDesc.InternalName);
             Assert.AreEqual(expectedDesc, inputDesc.Description);
             Assert.IsNotNull(inputDesc.IsEnabled);
             Assert.IsNotNull(inputDesc.AllowedValues);

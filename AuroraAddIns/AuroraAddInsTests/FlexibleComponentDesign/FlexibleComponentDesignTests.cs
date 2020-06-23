@@ -21,9 +21,7 @@ namespace Aurora.AddIns.Tests.FlexibleComponentDesign
         [TestMethod]
         public void PrerequisiteResearch_WhenChecking_Should_ReturnTrueIfAllPrerequisitesMet()
         {
-
-
-            Assert.Fail();
+            Assert.Inconclusive();
         }
     }
 }

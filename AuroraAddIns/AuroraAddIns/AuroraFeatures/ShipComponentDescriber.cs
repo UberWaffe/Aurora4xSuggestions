@@ -1,4 +1,5 @@
-﻿using Aurora.AddInsInterfacing.AuroraFeatures.Enums;
+﻿using Aurora.AddIns.AuroraFeatures.DesignInputDescriptors;
+using Aurora.AddInsInterfacing.AuroraFeatures.Enums;
 using Aurora.AddInsInterfacing.AuroraFeatures.Models;
 using System;
 using System.Collections.Generic;
@@ -32,7 +33,20 @@ namespace Aurora.AddIns.AuroraFeatures
         {
             var result = new List<TechDesignInputDescription>();
 
-
+            result.Add(InputDescriberMilitaryOrCommercial.Get());
+            result.Add(InputDescriberSize.Get());
+            result.Add(InputDescriberEnginePower.Get());
+            result.Add(InputDescriberEnginePowerMod.Get());
+            result.Add(InputDescriberFuelUse.Get());
+            result.Add(InputDescriberFuelUseMod.Get());
+            result.Add(InputDescriberThermalReduction.Get());
+            result.Add(InputDescriberThermalReductionMod.Get());
+            result.Add(InputDescriberCostMineralsMod.Get());
+            result.Add(InputDescriberCostEffortMod.Get());
+            result.Add(InputDescriberMspOnBreakMod.Get());
+            result.Add(InputDescriberCrewNeededMod.Get());
+            result.Add(InputDescriberResearchCostMod.Get());
+            result.Add(InputDescriberBreakdownChangeOnActiveUse.Get());
 
             return result;
         }

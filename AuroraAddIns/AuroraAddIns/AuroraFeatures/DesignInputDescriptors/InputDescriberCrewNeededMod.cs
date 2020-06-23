@@ -8,15 +8,15 @@ using System.Threading.Tasks;
 
 namespace Aurora.AddIns.AuroraFeatures.DesignInputDescriptors
 {
-    public static class InputDescriberMilitaryOrCommercial
+    public static class InputDescriberCrewNeededMod
     {
         public static TechDesignInputDescription Get()
         {
             var result = new TechDesignInputDescription()
             {
                 Type = DesignInputTypeEnum.Choice,
-                InternalName = TechDesignInternalEnum.IsMilitary,
-                Description = "Military or Commercial design",
+                InternalName = TechDesignInternalEnum.CrewNeededMod,
+                Description = "Crew Requirement Modifier",
             };
             result.AllowedValues = new Func<object, object>(input => AllowedValues(input));
             result.IsEnabled = new Func<object, bool>(input => IsEnabled(input));
@@ -30,8 +30,6 @@ namespace Aurora.AddIns.AuroraFeatures.DesignInputDescriptors
         public static object AllowedValues(object input)
         {
             var result = new Dictionary<int, string>();
-            result.Add(0, "Commercial");
-            result.Add(1, "Military");
 
             return result;
         }

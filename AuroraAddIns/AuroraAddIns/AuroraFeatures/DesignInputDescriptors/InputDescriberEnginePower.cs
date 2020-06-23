@@ -1,4 +1,5 @@
-﻿using Aurora.AddInsInterfacing.AuroraFeatures.Enums;
+﻿using Aurora.AddInsInterfacing.AuroraCore.Models;
+using Aurora.AddInsInterfacing.AuroraFeatures.Enums;
 using Aurora.AddInsInterfacing.AuroraFeatures.Models;
 using System;
 using System.Collections.Generic;
@@ -8,15 +9,15 @@ using System.Threading.Tasks;
 
 namespace Aurora.AddIns.AuroraFeatures.DesignInputDescriptors
 {
-    public static class InputDescriberMilitaryOrCommercial
+    public static class InputDescriberEnginePower
     {
         public static TechDesignInputDescription Get()
         {
             var result = new TechDesignInputDescription()
             {
-                Type = DesignInputTypeEnum.Choice,
-                InternalName = TechDesignInternalEnum.IsMilitary,
-                Description = "Military or Commercial design",
+                Type = DesignInputTypeEnum.Tech,
+                InternalName = TechDesignInternalEnum.EnginePower,
+                Description = "Engine Power",
             };
             result.AllowedValues = new Func<object, object>(input => AllowedValues(input));
             result.IsEnabled = new Func<object, bool>(input => IsEnabled(input));
@@ -29,9 +30,7 @@ namespace Aurora.AddIns.AuroraFeatures.DesignInputDescriptors
 
         public static object AllowedValues(object input)
         {
-            var result = new Dictionary<int, string>();
-            result.Add(0, "Commercial");
-            result.Add(1, "Military");
+            var result = new Dictionary<int, TechObject>();
 
             return result;
         }

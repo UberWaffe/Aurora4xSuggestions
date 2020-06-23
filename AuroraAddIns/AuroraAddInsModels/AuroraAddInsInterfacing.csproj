@@ -55,6 +55,7 @@
     <Compile Include="AuroraCore\Models\TNMineralsSet.cs" />
     <Compile Include="AuroraCore\Models\ShipComponent.cs" />
     <Compile Include="AuroraFeatures\Models\PurchaseCostSet.cs" />
+    <Compile Include="AuroraFeatures\Models\TechDesignNumberInput.cs" />
     <Compile Include="AuroraFeatures\Models\TechDesignInputDescription.cs" />
     <Compile Include="AuroraFeatures\Models\TechEffectDescription.cs" />
     <Compile Include="AuroraFeatures\Models\ResourcesSet.cs" />
